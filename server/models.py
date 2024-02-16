@@ -8,7 +8,8 @@ class User(db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), index=True, unique=True)
+    firstname = db.Column(db.String(64), index=True)
+    secondname = db.Column(db.String(64), index=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password = db.Column(db.String(128))
 
@@ -49,6 +50,45 @@ class TokenBlocklist(db.Model):
     def save(self):
         db.session.add(self)
         db.session.commit()
+
+class ChurchInfo(db.Model):
+    __tablename__ = 'church_info'
+
+    id = db.Column(db.Integer, primary_key=True)
+    contact = db.Column(db.String(100), nullable=False)
+    location = db.Column(db.String(255), nullable=False)
+    facebook = db.Column(db.String(255), nullable=True)
+    instagram = db.Column(db.String(255), nullable=True)
+    youtube = db.Column(db.String(255), nullable=True)
+    tiktok = db.Column(db.String(255), nullable=True)
+    x_social = db.Column(db.String(255), nullable=True)
+
+    def __repr__(self):
+        return f"<ChurchInfo {self.contact}>"
+
+class Service(db.Model):
+    __tablename__ = 'services'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False) # The name of the service (e.g., Sunday service, Midweek service, Overnight service).
+    start_time = db.Column(db.Time, nullable=False)
+    end_time = db.Column(db.Time, nullable=False)
+    service_type = db.Column(db.String(50), nullable=False) # The type of service (e.g., IN-PERSON, ONLINE, IN-PERSON & ONLINE).
+
+    def __repr__(self):
+        return f"<Service {self.name}>"
+
+
+
+
+
+
+
+
+
+
+
+
 
     # member_status = db.Column(db.Boolean, default=True)
     # admin_status = db.Column(db.Boolean, default=False)
