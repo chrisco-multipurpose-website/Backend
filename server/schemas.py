@@ -14,7 +14,7 @@ class ServiceSchema(Schema):
     service_type = fields.String()
 
 class ChurchInfoSchema(Schema):
-    id = fields.Intege()
+    id = fields.Integer()
     contact = fields.String()
     location = fields.String()
     facebook = fields.String()
