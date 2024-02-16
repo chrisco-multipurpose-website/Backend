@@ -65,6 +65,22 @@ class ChurchInfo(db.Model):
 
     def __repr__(self):
         return f"<ChurchInfo {self.contact}>"
+    
+     # get info by id
+    @classmethod
+    def get_service_by_id(cls, id):
+        return cls.query.filter_by(id=id).first()
+    
+    # save info
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    # delete info
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 
 class Service(db.Model):
     __tablename__ = 'services'
@@ -77,6 +93,21 @@ class Service(db.Model):
 
     def __repr__(self):
         return f"<Service {self.name}>"
+    
+    # get service by id
+    @classmethod
+    def get_service_by_id(cls, id):
+        return cls.query.filter_by(id=id).first()
+    
+    # save service
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    # delete service
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 
 

@@ -4,7 +4,8 @@ from flask_jwt_extended import JWTManager
 from models import db, User, TokenBlocklist
 from blueprints.auth import auth_bp
 from blueprints.users import user_bp
-
+from blueprints.services import service_bp
+from blueprints.churchinfo import churchinfo_bp
 
 app = Flask(__name__)
 app.secret_key = '5f8e5e934051cdfb322c0619'
@@ -20,6 +21,9 @@ db.init_app(app)
 # register blueprints
 app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(user_bp, url_prefix='/users')
+app.register_blueprint(service_bp, url_prefix='/services')
+app.register_blueprint(churchinfo_bp, url_prefix='/churchinfo')
+
 
 # load user
 @jwt.user_lookup_loader
