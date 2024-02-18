@@ -116,6 +116,7 @@ class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String)
     description = db.Column(db.String)
+    image = db.Column(db.String)
 
     def __repr__(self):
         return f"<Event {self.title}>"
