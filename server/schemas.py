@@ -46,3 +46,9 @@ class AboutUsSChema(Schema):
     church_slogan = fields.String()
     purpose = fields.String()
     history_desc = fields.String()
+
+class DepartmentSchema(Schema):
+    id = fields.Integer()
+    title = fields.String()
+    description = fields.String()
+    department_img = fields.String()

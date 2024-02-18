@@ -156,6 +156,16 @@ class AboutUs(db.Model):
     purpose= db.Column(db.String)
     history_desc = db.Column(db.String)
 
+class Department(db.Model):
+    __tablename__ = 'departments'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String)
+    description = db.Column(db.String)
+    department_img = db.Column(db.String)
+
+ 
+
 
 
 
