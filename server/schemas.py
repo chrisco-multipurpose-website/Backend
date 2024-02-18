@@ -22,3 +22,27 @@ class ChurchInfoSchema(Schema):
     youtube = fields.String()
     tiktok = fields.String()
     x_social = fields.String()
+
+class EventSchema(Schema):
+    id = fields.Integer()
+    title = fields.String()
+    description = fields.String()
+
+class AboutUsSChema(Schema):
+    id = fields.Integer()
+    title = fields.String()
+    description = fields.String()
+    about_img = fields.String()
+    mission = fields.String()
+    vision = fields.String()
+    faith = fields.String()
+    faith_img = fields.String()
+    word= fields.String()
+    word_img = fields.String()
+    trinity = fields.String()
+    trinity_img = fields.String()
+    baptism = fields.String()
+    baptism_img = fields.String()
+    church_slogan = fields.String()
+    purpose = fields.String()
+    history_desc = fields.String()

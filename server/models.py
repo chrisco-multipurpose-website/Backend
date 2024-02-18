@@ -110,6 +110,54 @@ class Service(db.Model):
         db.session.commit()
 
 
+class Event(db.Model):
+    __tablename__ = 'events'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String)
+    description = db.Column(db.String)
+
+    def __repr__(self):
+        return f"<Event {self.title}>"
+    
+    # get event by id
+    @classmethod
+    def get_service_by_id(cls, id):
+        return cls.query.filter_by(id=id).first()
+    
+    # save event
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    # delete event
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+class AboutUs(db.Model):
+    __tablename__ = 'about_us'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String)
+    description = db.Column(db.String)
+    about_img = db.Column(db.String)
+    mission = db.Column(db.String)
+    vision = db.Column(db.String)
+    faith = db.Column(db.String)
+    faith_img = db.Column(db.String)
+    word = db.Column(db.String)
+    word_img = db.Column(db.String)
+    trinity = db.Column(db.String)
+    trinity_img = db.Column(db.String)
+    baptism = db.Column(db.String)
+    baptism_img = db.Column(db.String)
+    church_slogan = db.Column(db.String)
+    purpose= db.Column(db.String)
+    history_desc = db.Column(db.String)
+
+
+
 
 
 

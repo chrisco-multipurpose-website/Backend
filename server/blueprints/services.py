@@ -28,17 +28,17 @@ def create_service():
 
     return jsonify({"message": "Service created successfully"}), 201
 
-@service_bp.get('all')
+@service_bp.get('/all')
 def get_all_services():
     page = request.args.get('page', default=1, type=int)
     per_page = request.args.get('per_page', type=int)
 
-    users = Service.query.paginate(
+    services = Service.query.paginate(
         page = page,
         per_page = per_page
     )
         
-    response = ServiceSchema().dump(users, many=True)
+    response = ServiceSchema().dump(services, many=True)
 
     return jsonify(response), 200
 

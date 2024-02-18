@@ -6,6 +6,7 @@ from blueprints.auth import auth_bp
 from blueprints.users import user_bp
 from blueprints.services import service_bp
 from blueprints.churchinfo import churchinfo_bp
+from blueprints.events import event_bp
 
 app = Flask(__name__)
 app.secret_key = '5f8e5e934051cdfb322c0619'
@@ -23,6 +24,7 @@ app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(user_bp, url_prefix='/users')
 app.register_blueprint(service_bp, url_prefix='/services')
 app.register_blueprint(churchinfo_bp, url_prefix='/churchinfo')
+app.register_blueprint(event_bp, url_prefix='/events')
 
 
 # load user
