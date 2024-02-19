@@ -9,19 +9,19 @@ class UserSchema(Schema):
 class ServiceSchema(Schema):
     id = fields.Integer()
     name = fields.String()
-    start_time = fields.Time()
-    end_time = fields.Time()
+    start_time = fields.String()
+    end_time = fields.String()
     service_type = fields.String()
 
 class ChurchInfoSchema(Schema):
     id = fields.Integer()
     contact = fields.String()
     location = fields.String()
-    facebook = fields.String()
-    instagram = fields.String()
-    youtube = fields.String()
-    tiktok = fields.String()
-    x_social = fields.String()
+    facebook_url = fields.String()
+    instagram_url = fields.String()
+    youtube_url = fields.String()
+    tiktok_url = fields.String()
+    x_url = fields.String()
 
 class EventSchema(Schema):
     id = fields.Integer()

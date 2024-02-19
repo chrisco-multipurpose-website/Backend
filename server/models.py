@@ -9,7 +9,7 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(64), index=True, nullable=False)
-    secondname = db.Column(db.String(64), index=True, nullable=False)
+    lastname = db.Column(db.String(64), index=True, nullable=False)
     email = db.Column(db.String(120), index=True, unique=True, nullable=False)
     password = db.Column(db.String(128))
 
@@ -57,11 +57,11 @@ class ChurchInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     contact = db.Column(db.String(100), nullable=False)
     location = db.Column(db.String(255), nullable=False)
-    facebook = db.Column(db.String(255), nullable=True)
-    instagram = db.Column(db.String(255), nullable=True)
-    youtube = db.Column(db.String(255), nullable=True)
-    tiktok = db.Column(db.String(255), nullable=True)
-    x_social = db.Column(db.String(255), nullable=True)
+    facebook_url = db.Column(db.String(255), nullable=True)
+    instagram_url = db.Column(db.String(255), nullable=True)
+    youtube_url = db.Column(db.String(255), nullable=True)
+    tiktok_url= db.Column(db.String(255), nullable=True)
+    x_url = db.Column(db.String(255), nullable=True)
 
     def __repr__(self):
         return f"<ChurchInfo {self.contact}>"
@@ -87,8 +87,8 @@ class Service(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False) # The name of the service (e.g., Sunday service, Midweek service, Overnight service).
-    start_time = db.Column(db.Time, nullable=False)
-    end_time = db.Column(db.Time, nullable=False)
+    start_time = db.Column(db.String, nullable=False)
+    end_time = db.Column(db.String, nullable=False)
     service_type = db.Column(db.String(50), nullable=False) # The type of service (e.g., IN-PERSON, ONLINE, IN-PERSON & ONLINE).
 
     def __repr__(self):

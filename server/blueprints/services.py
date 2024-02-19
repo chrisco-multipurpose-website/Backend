@@ -7,20 +7,18 @@ from schemas import ServiceSchema
 service_bp = Blueprint('services', __name__)
 
 
-def convert_time(time_str):
-    return datetime.strptime(time_str, "%I:%M %p").time()
+# def convert_time(time_str):
+#     return datetime.strptime(time_str, "%I:%M %p").time()
 
 
 
 @service_bp.post('/new')
 def create_service():
     data = request.get_json()
-    start_time = convert_time(data.get('start_time'))
-    end_time = convert_time(data.get('end_time'))
     new_service = Service(
         name= data.get('name'),
-        start_time=start_time,
-        end_time=end_time,
+        start_time=data.get('start_time'),
+        end_time=data.get('end_time'),
         service_type=data.get('service_type')
     )
 
