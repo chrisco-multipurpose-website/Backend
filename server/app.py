@@ -8,6 +8,8 @@ from blueprints.users import user_bp
 from blueprints.services import service_bp
 from blueprints.churchinfo import churchinfo_bp
 from blueprints.events import event_bp
+from blueprints.about_us import about_bp
+from blueprints.departments import department_bp
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -31,6 +33,8 @@ app.register_blueprint(user_bp, url_prefix='/users')
 app.register_blueprint(service_bp, url_prefix='/services')
 app.register_blueprint(churchinfo_bp, url_prefix='/churchinfo')
 app.register_blueprint(event_bp, url_prefix='/events')
+app.register_blueprint(about_bp, url_prefix='/about')
+app.register_blueprint(department_bp, url_prefix='/departments')
 
 
 # load user
