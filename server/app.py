@@ -1,16 +1,24 @@
 from flask import Flask, jsonify
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 from models import db, User, TokenBlocklist
 from blueprints.auth import auth_bp
 from blueprints.users import user_bp
-
+from blueprints.services import service_bp
+from blueprints.churchinfo import churchinfo_bp
+from blueprints.events import event_bp
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = '5f8e5e934051cdfb322c0619'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///church.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
+
+# Connecting with react
+CORS(app)
 
 # Initialize app with db, migrate
 migrate = Migrate(app, db)
@@ -20,6 +28,10 @@ db.init_app(app)
 # register blueprints
 app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(user_bp, url_prefix='/users')
+app.register_blueprint(service_bp, url_prefix='/services')
+app.register_blueprint(churchinfo_bp, url_prefix='/churchinfo')
+app.register_blueprint(event_bp, url_prefix='/events')
+
 
 # load user
 @jwt.user_lookup_loader

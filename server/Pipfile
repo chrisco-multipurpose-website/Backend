@@ -10,6 +10,9 @@ flask-Migrate = "*"
 flask_jwt_extended = "*"
 marshmallow = "*"
 Werkzeug = "*"
+flask-cors = "*"
+python-dotenv = "*"
+gunicorn = "*"
 
 [dev-packages]
 
