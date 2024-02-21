@@ -57,6 +57,9 @@ class ChurchInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     contact = db.Column(db.String(100), nullable=False)
     location = db.Column(db.String(255), nullable=False)
+    address = db.Column(db.String)
+    email = db.Column(db.String)
+    website = db.Column(db.String)
     facebook_url = db.Column(db.String(255), nullable=True)
     instagram_url = db.Column(db.String(255), nullable=True)
     youtube_url = db.Column(db.String(255), nullable=True)
@@ -114,10 +117,18 @@ class Event(db.Model):
     __tablename__ = 'events'
 
     id = db.Column(db.Integer, primary_key=True)
+    event_img = db.Column(db.String)
+    event_category = db.Column(db.String)
     title = db.Column(db.String)
     description = db.Column(db.String)
-    image = db.Column(db.String)
-
+    theme = db.Column(db.String)
+    scripture = db.Column(db.String)
+    location = db.Column(db.String)
+    date = db.Column(db.Date)
+    start_time = db.Column(db.String)
+    end_time = db.Column(db.String)
+    event_host = db.Column(db.String)
+    
     def __repr__(self):
         return f"<Event {self.title}>"
     
@@ -165,7 +176,21 @@ class Department(db.Model):
     description = db.Column(db.String)
     department_img = db.Column(db.String)
 
- 
+class Blog(db.Model):
+    __tablename__ = "blogs"
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String)
+    description = db.Column(db.String)
+    blog_img = db.Column(db.String)
+
+class SliderImage(db.Model):
+    __tablename__ = "sliderimages"
+
+    id = db.Column(db.Integer, primary_key=True)
+    slider1 = db.Column(db.String)
+    slider2 = db.Column(db.String) 
+    slider3 = db.Column(db.String)
 
 
 

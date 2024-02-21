@@ -10,6 +10,9 @@ from blueprints.churchinfo import churchinfo_bp
 from blueprints.events import event_bp
 from blueprints.about_us import about_bp
 from blueprints.departments import department_bp
+from blueprints.swagger import swaggerui_bp
+from blueprints.youtube import youtube_bp
+from blueprints.spotify import spotify_bp
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -28,6 +31,7 @@ jwt = JWTManager(app)
 db.init_app(app)
 
 # register blueprints
+app.register_blueprint(swaggerui_bp, url_prefix="/swagger")
 app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(user_bp, url_prefix='/users')
 app.register_blueprint(service_bp, url_prefix='/services')
@@ -35,6 +39,8 @@ app.register_blueprint(churchinfo_bp, url_prefix='/churchinfo')
 app.register_blueprint(event_bp, url_prefix='/events')
 app.register_blueprint(about_bp, url_prefix='/about')
 app.register_blueprint(department_bp, url_prefix='/departments')
+app.register_blueprint(youtube_bp, url_prefix='/youtube')
+app.register_blueprint(spotify_bp, url_prefix='/spotify')
 
 
 # load user

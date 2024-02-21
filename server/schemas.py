@@ -17,6 +17,9 @@ class ChurchInfoSchema(Schema):
     id = fields.Integer()
     contact = fields.String()
     location = fields.String()
+    address = fields.String()
+    email = fields.String()
+    website = fields.String()
     facebook_url = fields.String()
     instagram_url = fields.String()
     youtube_url = fields.String()
@@ -25,8 +28,17 @@ class ChurchInfoSchema(Schema):
 
 class EventSchema(Schema):
     id = fields.Integer()
+    event_img = fields.String()
+    event_category = fields.String()
     title = fields.String()
     description = fields.String()
+    theme = fields.String()
+    scripture = fields.String()
+    location = fields.String()
+    date = fields.Date()
+    start_time = fields.String()
+    end_time = fields.String()
+    event_host = fields.String()
 
 class AboutUsSChema(Schema):
     id = fields.Integer()
@@ -52,3 +64,15 @@ class DepartmentSchema(Schema):
     title = fields.String()
     description = fields.String()
     department_img = fields.String()
+
+class BlogSchema(Schema):
+    id = fields.Integer()
+    title = fields.String()
+    description = fields.String()
+    blog_img = fields.String()
+
+class Sliderchema(Schema):
+    id = fields.Integer()
+    slider1 = fields.String()
+    slider2 = fields.String()
+    slider3 = fields.String()

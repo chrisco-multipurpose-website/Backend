@@ -1,4 +1,5 @@
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 from models import db, User, ChurchInfo, Service, Event, AboutUs, Department, TokenBlocklist
 from app import app
 
@@ -20,7 +21,18 @@ with app.app_context():
     ]
 
     churchinfo_data = [
-        {"id": 1, "contact": "+254712345678", "location": "Nairobi, Woodley, Ngonga Road", "facebook_url": "", "instagram_url": "", "youtube_url": "", "tiktok_url": "", "x_url": ""}
+        {
+            "id": 1, 
+            "contact": "+254712345678", 
+            "location": "Nairobi, Woodley, Ngonga Road", 
+            "adress": "Woodley, Kenya 00100", 
+            "email": "chrisco.central@yahoo.com", 
+            "website": "chriscocentralnrb.com", 
+            "facebook_url": "https://www.facebook.com/chrisconairobi?mibextid=JRoKGi", 
+            "instagram_url": "https://www.instagram.com/chrisconairobi", 
+            "youtube_url": "https://www.youtube.com/@chrisconairobi", 
+            "tiktok_url": "https://www.tiktok.com/@chrisconairobi", 
+            "x_url": "https://twitter.com/chrisconairobi"}
     ]
 
     services_data = [
@@ -30,9 +42,48 @@ with app.app_context():
     ]
 
     events_data = [
-        {"id": 1, "title": "Dinner Night", "description": "Indulge in an evening of exquisite flavors and delightful company at our dinner night event", "image": ""},
-        {"id": 2, "title": "Youth Fellowship", "description": "Engage with like-minded youths and build a strong spiritual foundation for a purpose life", "image": ""},
-        {"id": 3, "title": "Community Outreach Programs", "description": "Making positive impact on others by partcipating in other various community serice initiatives", "image": ""}
+        {
+            "id": 1, 
+            "event_ing": "images/events/dinner.png", 
+            "event_category": "Dinner", 
+            "title": "Dinner Night", 
+            "description": "Indulge in an evening of exquisite flavors and delightful company at our dinner night event", 
+            "theme": "Connect Fellowship", 
+            "scripture": "John 3:16", 
+            "location": "Central Church", 
+            "date": datetime.strptime("2024-02-22", "%Y-%m-%d").date(), 
+            "start_time": "6:00 PM", 
+            "end_time": "10:00 PM", 
+            "event_host": "Catering Team"
+        },
+        {
+            "id": 2, 
+            "event_ing": "images/events/youth.png", 
+            "event_category": "Youth", 
+            "title": "Youth Fellowship", 
+            "description": "Engage with like-minded youths and build a strong spiritual foundation for a purpose life", 
+            "theme": "Socializing, Fun and learning", 
+            "scripture": "John 3:16", 
+            "location": "Ruaka branch", 
+            "date": datetime.strptime("2024-02-29", "%Y-%m-%d").date(), 
+            "start_time": "10:00 AM", 
+            "end_time": "4:00 PM", 
+            "event_host": "Ruaka Youth"
+        },
+        {
+            "id": 3, 
+            "event_ing": "images/events/outreach.png", 
+            "event_category": "Outreach", 
+            "title": "Community Outreach Programs", 
+            "description": "Making positive impact on others by partcipating in other various community serice initiatives", 
+            "theme": "Save a soul", 
+            "scripture": "John 3:16", 
+            "location": "Kitengela", 
+            "date": datetime.strptime("2024-03-01", "%Y-%m-%d").date(), 
+            "start_time": "2:00 PM", 
+            "end_time": "5:00 PM ", 
+            "event_host": "Central Church"
+        }
     ]
 
     aboutus_data = [
@@ -40,17 +91,17 @@ with app.app_context():
             "id": 1,
             "title": "Why Chrisco Central?",
             "description": "The Central Church is a congregation under the larger Christ’s co-Workers Fellowship (Chrisco) situated in Woodley in Nairobi, Kenya. The Central Church is headed by Presbyter Jeremiah Mugala and Pastor Rosemary Mugala together with other elder-ship. The Church aims at meeting the needs of the total man spiritually. Our dedicated team of elder-ship and volunteers work tirelessly to create warm and conducive environment for all.",
-            "about_img": "",
+            "about_img": "images/about/about.png",
             "mission": "To equip believers through prayer, teaching God’s word, discipleship, evangelism, Christian living, tent-making so that they can be united, and attain the full knowledge of Christ in spiritual maturity",
             "vision": "To be a congregation of believers disciples under the five-fold ministry to fulfill the great commission of our Lord Jesus Christ.",
             "faith": "At Chrisco Central church, We offer a variety of services and programs to meet the spiritual needs of our congregation. Our Sunday services include uplifting music, inspiring sermons, and opportunities for personal growth and connection. We also have programs for children, youth, and adults throughout the week.",
-            "faith_img": "",
+            "faith_img": "images/about/faith.png",
             "word": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in mauris congue, dignissim nulla et, tincidunt velit. Sed libero arcu, convallis in eros vel, egestas congue nulla. Sed nec dictum nulla. Nulla facilisi. Aliquam erat volutpat. Sed non quam arcu. Donec euismod mauris.",
-            "word_img": "",
+            "word_img": "images/about/word.png",
             "trinity": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in mauris congue, dignissim nulla et, tincidunt velit. Sed libero arcu, convallis in eros vel, egestas congue nulla. Sed nec dictum nulla. Nulla facilisi. Aliquam erat volutpat. Sed non quam arcu. Donec euismod mauris.",
-            "trinity_img": "",
+            "trinity_img": "images/about/trinity.png",
             "baptism": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in mauris congue, dignissim nulla et, tincidunt velit. Sed libero arcu, convallis in eros vel, egestas congue nulla. Sed nec dictum nulla. Nulla facilisi. Aliquam erat volutpat. Sed non quam arcu. Donec euismod mauris.",
-            "baptism_img": "",
+            "baptism_img": "images/about/baptism.png",
             "church_slogan": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in mauris congue, dignissim nulla et, tincidunt velit. Sed libero arcu, convallis in eros vel, egestas congue nulla. Sed nec dictum nulla. Nulla facilisi. Aliquam erat volutpat. Sed non quam arcu. Donec euismod mauris.",
             "purpose": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in mauris congue, dignissim nulla et, tincidunt velit. Sed libero arcu, convallis in eros vel, egestas congue nulla. Sed nec dictum nulla. Nulla facilisi. Aliquam erat volutpat. Sed non quam arcu. Donec euismod mauris.",
             "history_desc": "",
@@ -58,19 +109,33 @@ with app.app_context():
     ]
 
     departments_data = [
-        {"id": 1, "title": "CHILDREN'S MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": ""},
-        {"id": 2, "title": "WORSHIP MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": ""},
-        {"id": 3, "title": "YOUTH MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": ""},
-        {"id": 4, "title": "MEN'S MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": ""},
-        {"id": 5, "title": "WOMEN'S MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": ""},
-        {"id": 6, "title": "INTERCESSORY MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": ""},
-        {"id": 7, "title": "EVANGELISM MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": ""},
-        {"id": 8, "title": "EDITORIAL MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": ""},
-        {"id": 9, "title": "USHERS MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": ""},
-        {"id": 10, "title": "FLOWERING MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": ""},
-        {"id": 11, "title": "EQUIPMENT MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": ""},
-        {"id": 12, "title": "CATERING MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": ""},
-        {"id": 13, "title": "CHURCH DEVELOPMENT MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": ""},
+        {"id": 1, "title": "CHILDREN'S MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/children.png"},
+        {"id": 2, "title": "WORSHIP MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/worship.png"},
+        {"id": 3, "title": "YOUTH MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/youth.png"},
+        {"id": 4, "title": "MEN'S MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/men.png"},
+        {"id": 5, "title": "WOMEN'S MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/women.png"},
+        {"id": 6, "title": "INTERCESSORY MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/intercessory.png"},
+        {"id": 7, "title": "EVANGELISM MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/evangelism.png"},
+        {"id": 8, "title": "EDITORIAL MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/editorial.png"},
+        {"id": 9, "title": "USHERS MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/ushering.png"},
+        {"id": 10, "title": "FLOWERING MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/flowering.png"},
+        {"id": 11, "title": "EQUIPMENT MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/equipment.png"},
+        {"id": 12, "title": "CATERING MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/catering.png"},
+        {"id": 13, "title": "CHURCH DEVELOPMENT MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/development.png"},
+    ]
+
+    blogs_data = [
+        {"id": 1, "title": "Teach to remember our days", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "blog_img": "images/blogs/blog1.png"},
+        {"id": 2, "title": "The Spirit of God gives us power to do new things", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "blog_img": "images/blogs/blog2.png"},
+        {"id": 3, "title": "What shall I render unto to the Lord for all His benefits towards me", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "blog_img": "images/blogs/blog3.png"},
+        {"id": 4, "title": "Paul pursuit of the prize: Pressing towards the goal", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "blog_img": "images/blogs/blog4.png"},
+        {"id": 5, "title": "When the winds howl and the waves crash around us", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "blog_img": "images/blogs/blog5.png"},
+    ]
+
+    sliders_data = [
+        {"id": 1, "slider1": "images/sliders/slider1.png"},
+        {"id": 2, "slider2": "images/sliders/slider2.png"},
+        {"id": 3, "slider3": "images/sliders/slider3.png"},
     ]
 
     print("Seeding users data")
@@ -106,5 +171,17 @@ with app.app_context():
     print("Seeding departments data")
     for department in departments_data:
         data = Department(**department)
+        db.session.add(data)
+    db.session.commit()
+
+    print("Seeding blogs data")
+    for blog in blogs_data:
+        data = Department(**blog)
+        db.session.add(data)
+    db.session.commit()
+
+    print("Seeding sliders data")
+    for slider in sliders_data:
+        data = Department(**slider)
         db.session.add(data)
     db.session.commit()
