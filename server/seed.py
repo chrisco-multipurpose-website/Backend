@@ -135,9 +135,9 @@ with app.app_context():
     ]
 
     sliders_data = [
-        {"id": 1, "slider1": "images/sliders/slider1.png"},
-        {"id": 2, "slider2": "images/sliders/slider2.png"},
-        {"id": 3, "slider3": "images/sliders/slider3.png"},
+        {"id": 1, "slider_img": "images/sliders/slider1.png"},
+        {"id": 2, "slider_img": "images/sliders/slider2.png"},
+        {"id": 3, "slider_img": "images/sliders/slider3.png"},
     ]
 
     print("Seeding users data")

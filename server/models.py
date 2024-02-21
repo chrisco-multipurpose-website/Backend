@@ -188,10 +188,7 @@ class SliderImage(db.Model):
     __tablename__ = "sliderimages"
 
     id = db.Column(db.Integer, primary_key=True)
-    slider1 = db.Column(db.String)
-    slider2 = db.Column(db.String) 
-    slider3 = db.Column(db.String)
-
+    slider_img = db.Column(db.String)
 
 
 

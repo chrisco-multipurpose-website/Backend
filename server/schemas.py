@@ -73,6 +73,4 @@ class BlogSchema(Schema):
 
 class SliderImageSchema(Schema):
     id = fields.Integer()
-    slider1 = fields.String()
-    slider2 = fields.String()
-    slider3 = fields.String()
+    slider_img = fields.String()
