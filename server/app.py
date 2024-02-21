@@ -13,6 +13,7 @@ from blueprints.departments import department_bp
 from blueprints.swagger import swaggerui_bp
 from blueprints.youtube import youtube_bp
 from blueprints.spotify import spotify_bp
+from blueprints.sliders import slider_bp
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -41,6 +42,7 @@ app.register_blueprint(about_bp, url_prefix='/about')
 app.register_blueprint(department_bp, url_prefix='/departments')
 app.register_blueprint(youtube_bp, url_prefix='/youtube')
 app.register_blueprint(spotify_bp, url_prefix='/spotify')
+app.register_blueprint(slider_bp, url_prefix='/sliders')
 
 
 # load user
