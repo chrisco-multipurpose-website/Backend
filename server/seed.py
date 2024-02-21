@@ -1,6 +1,6 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-from models import db, User, ChurchInfo, Service, Event, AboutUs, Department, TokenBlocklist
+from models import db, User, ChurchInfo, Service, Event, AboutUs, Department, Blog, SliderImage, TokenBlocklist
 from app import app
 
 with app.app_context():
@@ -10,6 +10,8 @@ with app.app_context():
     Event.query.delete()
     AboutUs.query.delete()
     Department.query.delete()
+    Blog.query.delete()
+    SliderImage.query.delete()
     TokenBlocklist.query.delete()
 
     users_data = [
@@ -25,7 +27,7 @@ with app.app_context():
             "id": 1, 
             "contact": "+254712345678", 
             "location": "Nairobi, Woodley, Ngonga Road", 
-            "adress": "Woodley, Kenya 00100", 
+            "address": "Woodley, Kenya 00100", 
             "email": "chrisco.central@yahoo.com", 
             "website": "chriscocentralnrb.com", 
             "facebook_url": "https://www.facebook.com/chrisconairobi?mibextid=JRoKGi", 
@@ -44,7 +46,7 @@ with app.app_context():
     events_data = [
         {
             "id": 1, 
-            "event_ing": "images/events/dinner.png", 
+            "event_img": "images/events/dinner.png", 
             "event_category": "Dinner", 
             "title": "Dinner Night", 
             "description": "Indulge in an evening of exquisite flavors and delightful company at our dinner night event", 
@@ -58,7 +60,7 @@ with app.app_context():
         },
         {
             "id": 2, 
-            "event_ing": "images/events/youth.png", 
+            "event_img": "images/events/youth.png", 
             "event_category": "Youth", 
             "title": "Youth Fellowship", 
             "description": "Engage with like-minded youths and build a strong spiritual foundation for a purpose life", 
@@ -72,7 +74,7 @@ with app.app_context():
         },
         {
             "id": 3, 
-            "event_ing": "images/events/outreach.png", 
+            "event_img": "images/events/outreach.png", 
             "event_category": "Outreach", 
             "title": "Community Outreach Programs", 
             "description": "Making positive impact on others by partcipating in other various community serice initiatives", 
@@ -176,12 +178,12 @@ with app.app_context():
 
     print("Seeding blogs data")
     for blog in blogs_data:
-        data = Department(**blog)
+        data = Blog(**blog)
         db.session.add(data)
     db.session.commit()
 
     print("Seeding sliders data")
     for slider in sliders_data:
-        data = Department(**slider)
+        data = SliderImage(**slider)
         db.session.add(data)
     db.session.commit()
