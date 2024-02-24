@@ -3,7 +3,7 @@ from marshmallow import fields, Schema
 class UserSchema(Schema):
     id = fields.Integer()
     firstname = fields.String()
-    secondname = fields.String()
+    lastname = fields.String()
     email = fields.String()
 
 class ServiceSchema(Schema):
