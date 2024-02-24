@@ -12,6 +12,9 @@ class User(db.Model):
     lastname = db.Column(db.String(64), index=True, nullable=False)
     email = db.Column(db.String(120), index=True, unique=True, nullable=False)
     password = db.Column(db.String(128))
+    # role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    
+    # role = db.relationship('Role', backref='users')
 
     def __repr__(self):
         return f"<User {self.email}>"
@@ -37,6 +40,30 @@ class User(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+class Role(db.Model):
+    __tablename__ = 'roles'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, unique=True, nullable=False)
+
+    def __repr__(self):
+        return f"<Role {self.name}>"
+
+class ProfileDetail(db.Model):
+    __tablename__ = 'profile_details'
+
+    id = db.Column(db.Integer, primary_key=True)
+    # user_id = db.Column(db.Integer, db.ForeignKey('users.id'), unique=True)
+    phone_number = db.Column(db.String(15), nullable=True)
+    address = db.Column(db.String(255), nullable=True)
+    bio = db.Column(db.Text, nullable=True)
+    profile_picture = db.Column(db.String(255), nullable=True)
+
+    # user = db.relationship('User', backref=db.backref('profile_details', uselist=False))
+
+    def __repr__(self):
+        return f"<ProfileDetails {self.user_id}>"
 
 
 class TokenBlocklist(db.Model):

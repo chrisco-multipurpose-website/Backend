@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required, get_jwt
 from datetime import datetime
-from models import Event
+from models import Event, db
 from schemas import EventSchema
 
 event_bp = Blueprint('events', __name__)
@@ -18,7 +18,13 @@ def create_event():
 
     return jsonify({"message": "Service created successfully"}), 201
 
-@event_bp.get('/all')
+@event_bp.route('/<int:event_id>', methods=['GET'])
+def get_event(event_id):
+    event = Event.query.get_or_404(event_id)
+    response = EventSchema().dump(event)
+    return jsonify(response), 200
+
+@event_bp.route('/all', methods=['GET'])
 def get_all_events():
     page = request.args.get('page', default=1, type=int)
     per_page = request.args.get('per_page', type=int)
@@ -31,3 +37,21 @@ def get_all_events():
     response = EventSchema().dump(events, many=True)
 
     return jsonify(response), 200
+
+@event_bp.route('/update/<int:event_id>', methods=['PUT'])
+# @jwt_required()
+def update_user(event_id):
+    event = Event.query.get_or_404(event_id)
+    data = request.get_json()
+    for key, value in data.items():
+        setattr(event, key, value)
+    db.session.commit()
+    return jsonify({"message": "Event updated successfully"}), 200
+
+@event_bp.route('/delete/<int:event_id>', methods=['DELETE'])
+# @jwt_required()
+def delete_event(event_id):
+    event = Event.query.get_or_404(event_id)
+    db.session.delete(event)
+    db.session.commit()
+    return jsonify({"message": "Event deleted successfully"}), 200
