@@ -14,6 +14,7 @@ Werkzeug = "*"
 flask-cors = "*"
 python-dotenv = "*"
 gunicorn = "*"
+requests = "*"
 
 [dev-packages]
 
