@@ -40,7 +40,7 @@ def get_all_events():
 
 @event_bp.route('/update/<int:event_id>', methods=['PUT'])
 # @jwt_required()
-def update_user(event_id):
+def update_event(event_id):
     event = Event.query.get_or_404(event_id)
     data = request.get_json()
     for key, value in data.items():
