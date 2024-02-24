@@ -25,6 +25,7 @@ def get_event(event_id):
     return jsonify(response), 200
 
 @event_bp.route('/all', methods=['GET'])
+# @jwt_required()
 def get_all_events():
     page = request.args.get('page', default=1, type=int)
     per_page = request.args.get('per_page', type=int)
