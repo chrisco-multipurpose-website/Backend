@@ -34,13 +34,19 @@ def login_user():
          access_token = create_access_token(identity=user.email)
          refresh_token = create_refresh_token(identity=user.email)
 
+         print("User's first name:", user.firstname)
+
          return jsonify(
              {
                  "message":"Logged In",
+                 "user_details": {
+                     "username": user.firstname,  
+                     "email": user.email
+                 },
                  "tokens": {
                      "access": access_token,
                      "refresh": refresh_token
-                 }
+                 },
              }
          ), 200
      
