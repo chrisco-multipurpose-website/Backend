@@ -21,6 +21,11 @@ with app.app_context():
         {"id": 4, "firstname": "Jane", "lastname": "Smith", "email": "janesmith@gmail.com", "password": generate_password_hash("janesmith123")},
         {"id": 5, "firstname": "Vera", "lastname": "Obiero", "email": "veraobiero@gmail.com", "password": generate_password_hash("vera123")},
     ]
+    roles_data = [
+        {"id": 1, "type": "member"},
+        {"id": 2, "type": "admin"},
+        {"id": 3, "type": "superadmin"},
+    ]
 
     churchinfo_data = [
         {

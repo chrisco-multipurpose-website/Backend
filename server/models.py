@@ -18,6 +18,7 @@ class User(db.Model):
 
     def __repr__(self):
         return f"<User {self.email}>"
+    
     # set hash password
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -45,7 +46,7 @@ class Role(db.Model):
     __tablename__ = 'roles'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, unique=True, nullable=False)
+    type = db.Column(db.String, unique=True, nullable=False)
 
     def __repr__(self):
         return f"<Role {self.name}>"
@@ -64,6 +65,16 @@ class ProfileDetail(db.Model):
 
     def __repr__(self):
         return f"<ProfileDetails {self.user_id}>"
+    
+    # save profile
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    # delete profile
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 
 class TokenBlocklist(db.Model):
@@ -195,6 +206,19 @@ class AboutUs(db.Model):
     purpose= db.Column(db.String)
     history_desc = db.Column(db.String)
 
+    def __repr__(self):
+        return f"<About {self.title}>"
+
+    # save about
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    # delete about
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 class Department(db.Model):
     __tablename__ = 'departments'
 
@@ -202,6 +226,19 @@ class Department(db.Model):
     title = db.Column(db.String)
     description = db.Column(db.String)
     department_img = db.Column(db.String)
+
+    def __repr__(self):
+        return f"<Department {self.title}>"
+
+    # save department
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    # delete department
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 class Blog(db.Model):
     __tablename__ = "blogs"
@@ -211,11 +248,42 @@ class Blog(db.Model):
     description = db.Column(db.String)
     blog_img = db.Column(db.String)
 
+    def __repr__(self):
+        return f"<Blog {self.title}>"
+
+    # save department
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    # delete department
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 class SliderImage(db.Model):
     __tablename__ = "sliderimages"
 
     id = db.Column(db.Integer, primary_key=True)
     slider_img = db.Column(db.String)
+
+    def __repr__(self):
+        return f"<SliderImage {self.id}>"
+    
+class PrayerRequest(db.Model):
+    __tablename__ = 'prayer_requests'
+
+    id = db.Column(db.Integer, primary_key=True)
+    # user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    request = db.Column(db.String(255), nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
+    # # Define a relationship with the User model
+    # user = db.relationship('User', backref=db.backref('prayer_requests', lazy=True))
+
+    def __repr__(self):
+        return f"<PrayerRequest {self.id}>"
+
 
 
 
@@ -313,13 +381,3 @@ class SliderImage(db.Model):
 
 #     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-# class FormSubmission(db.Model):
-#     __tablename__ = 'formsubmissions'
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     user_id = db.Column(db.Integer)
-#     form_type = db.Column(db.String)
-#     content = db.Column(db.String)
-#     subitted_at = db.Column(db.DateTime)
-
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

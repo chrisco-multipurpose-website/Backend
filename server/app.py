@@ -14,6 +14,9 @@ from blueprints.swagger import swaggerui_bp
 from blueprints.youtube import youtube_bp
 from blueprints.spotify import spotify_bp
 from blueprints.sliders import slider_bp
+from blueprints.blogs import blog_bp
+from blueprints.profile import profile_bp
+from blueprints.prayer_request import prayer_request_bp
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -43,6 +46,10 @@ app.register_blueprint(department_bp, url_prefix='/departments')
 app.register_blueprint(youtube_bp, url_prefix='/youtube')
 app.register_blueprint(spotify_bp, url_prefix='/spotify')
 app.register_blueprint(slider_bp, url_prefix='/sliders')
+app.register_blueprint(blog_bp, url_prefix='/blogs')
+app.register_blueprint(profile_bp, url_prefix='/profile')
+app.register_blueprint(prayer_request_bp, url_prefix='/requests')
+
 
 
 # load user

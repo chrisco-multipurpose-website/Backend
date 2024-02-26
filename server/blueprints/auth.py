@@ -4,7 +4,7 @@ from models import User, TokenBlocklist
 
 auth_bp = Blueprint('auth', __name__)
 
-@auth_bp.post('/register')
+@auth_bp.route('/register', methods=['POST'])
 def register_user():
     data = request.get_json()
 
@@ -24,7 +24,7 @@ def register_user():
 
     return jsonify({"message": "User created successfully"}), 201
 
-@auth_bp.post('/login')
+@auth_bp.route('/login', methods=['POST'])
 def login_user():
      data = request.get_json()
 
@@ -46,7 +46,7 @@ def login_user():
      
      return jsonify({"error": "Invalid email or password"}), 400
 
-@auth_bp.get('/whoami')
+@auth_bp.route('/whoami', methods=['GET'])
 @jwt_required()
 def whoami():
     return jsonify(
@@ -58,7 +58,7 @@ def whoami():
         }
     )
 
-@auth_bp.get('/refresh')
+@auth_bp.route('/refresh', methods=['GET'])
 @jwt_required(refresh=True)
 def refresh_access():
     identity = get_jwt_identity()
@@ -66,7 +66,7 @@ def refresh_access():
 
     return jsonify({"access_token": new_access_token})
 
-@auth_bp.get('/logout')
+@auth_bp.route('/logout', methods=['GET'])
 @jwt_required(verify_type=False)
 def logout_user():
     jwt = get_jwt()
@@ -78,3 +78,21 @@ def logout_user():
     token_b.save()
 
     return jsonify({"message": f"{token_type} token revoked successfully"}), 200
+
+@auth_bp.route('/reset-password', methods=['POST'])
+def reset_password():
+    data = request.get_json()
+
+    email = data.get('email')
+    new_password = data.get('new_password')
+
+    user = User.get_user_by_email(email=email)
+
+    if user is None:
+        return jsonify({"error": "User does not exist"}), 404
+
+    # Update the password for the user
+    user.set_password(password=new_password)
+    user.save()
+
+    return jsonify({"message": "Password reset successfully"}), 200
