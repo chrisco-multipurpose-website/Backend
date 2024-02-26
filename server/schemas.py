@@ -10,7 +10,7 @@ class ProfileDetailSchema(Schema):
     id = fields.Integer()
     phone_number = fields.String()
     address = fields.String()
-    bio = fields.Text()
+    bio = fields.String()
     profile_picture = fields.String()
 
 class ServiceSchema(Schema):
