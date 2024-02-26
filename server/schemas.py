@@ -6,6 +6,13 @@ class UserSchema(Schema):
     lastname = fields.String()
     email = fields.String()
 
+class ProfileDetailSchema(Schema):
+    id = fields.Integer()
+    phone_number = fields.String()
+    address = fields.String()
+    bio = fields.Text()
+    profile_picture = fields.String()
+
 class ServiceSchema(Schema):
     id = fields.Integer()
     name = fields.String()
@@ -74,3 +81,8 @@ class BlogSchema(Schema):
 class SliderImageSchema(Schema):
     id = fields.Integer()
     slider_img = fields.String()
+
+class PrayerRequestSchema(Schema):
+    id = fields.Integer()
+    request = fields.String()
+    timestamp = fields.DateTime()

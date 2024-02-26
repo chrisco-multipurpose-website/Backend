@@ -6,7 +6,7 @@ from schemas import EventSchema
 
 event_bp = Blueprint('events', __name__)
 
-@event_bp.post('/new')
+@event_bp.route('/new', methods=['POST'])
 def create_event():
     data = request.get_json()
     new_event = Event(
