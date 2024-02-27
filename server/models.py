@@ -308,9 +308,9 @@ class Comment(db.Model):
     __tablename__ = 'comments'
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'), nullable=False)
-    content = db.Column(db.String(255), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
+    blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'), nullable=True)
+    comment = db.Column(db.String(255), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
 

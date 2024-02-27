@@ -1,8 +1,8 @@
 """update models
 
-Revision ID: ed9209f459a5
+Revision ID: bc2159e3e9f1
 Revises: 
-Create Date: 2024-02-27 14:46:38.095219
+Create Date: 2024-02-27 18:17:53.885115
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ed9209f459a5'
+revision = 'bc2159e3e9f1'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -121,9 +121,9 @@ def upgrade():
 
     op.create_table('comments',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('blog_id', sa.Integer(), nullable=False),
-    sa.Column('content', sa.String(length=255), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('blog_id', sa.Integer(), nullable=True),
+    sa.Column('comment', sa.String(length=255), nullable=False),
     sa.Column('timestamp', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['blog_id'], ['blogs.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),

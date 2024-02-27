@@ -15,6 +15,7 @@ with app.app_context():
     SliderImage.query.delete()
     TokenBlocklist.query.delete()
     Role.query.delete()
+    Comment.query.delete()
 
     # Execute a raw SQL query to delete all data from the user_roles table
     db.session.execute(text('DELETE FROM user_roles'))
@@ -171,7 +172,7 @@ with app.app_context():
                 print(f"Role with type '{role_type}' not found for user {user['email']}")
         db.session.add(user)
     db.session.commit()
-    
+
     print("Seeding churchinfo data")
     for info in churchinfo_data:
         data = ChurchInfo(**info)
@@ -225,13 +226,13 @@ with app.app_context():
         db.session.add(request)
     db.session.commit()
 
-    print("Seeding comments data with loop")
+    print("Seeding comments data")
     for user in users_data:
         for blog in blogs_data:  
             comment_data = {
                 "user_id": user["id"],
                 "blog_id": blog["id"],
-                "content": f"This is a comment from user 'XYZ' on blog 'XYZ'",
+                "comment": "The blog is awesome!"
                 }
             comment = Comment(**comment_data)
             db.session.add(comment)

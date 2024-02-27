@@ -9,7 +9,7 @@ comment_bp = Blueprint('comments', __name__)
 def create_comment():
     data = request.get_json()
     new_comment = Comment(
-        content = data.get('content'),
+        comment = data.get('content'),
         timestamp = data.get('timestamp')
     )
 
