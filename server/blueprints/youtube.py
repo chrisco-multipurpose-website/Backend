@@ -3,7 +3,7 @@ import requests
 
 youtube_bp = Blueprint('youtube', __name__)
 
-YOUTUBE_API_KEY = 'AIzaSyDIlf92Bucc_PV3bShQdsrmtVAcTL5PbAk'
+YOUTUBE_API_KEY = 'AIzaSyAtaDVYFWfyLA-KMcOJLfWCzT_mWGpQYIc'
 CHANNEL_ID = 'UCx3_YD5Skpopibo0OUGKL0Q'
 YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3/search'
 
