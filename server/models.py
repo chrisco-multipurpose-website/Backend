@@ -4,6 +4,12 @@ from datetime import datetime
 
 db = SQLAlchemy()
 
+# Define association table for many-to-many relationship between users and roles
+user_roles = db.Table('user_roles',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+    db.Column('role_id', db.Integer, db.ForeignKey('roles.id'), primary_key=True)
+)
+
 class User(db.Model):
     __tablename__ = 'users'
 
@@ -12,9 +18,11 @@ class User(db.Model):
     lastname = db.Column(db.String(64), index=True, nullable=False)
     email = db.Column(db.String(120), index=True, unique=True, nullable=False)
     password = db.Column(db.String(128))
-    # role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
-    
-    # role = db.relationship('Role', backref='users')
+
+    roles = db.relationship('Role', secondary=user_roles, backref=db.backref('users', lazy='dynamic'))
+    personal_details = db.relationship('ProfileDetail', uselist=False, back_populates='user')
+    comments = db.relationship('Comment', backref='user', lazy=True)
+    prayer_requests = db.relationship('PrayerRequest', backref='user', lazy=True)
 
     def __repr__(self):
         return f"<User {self.email}>"
@@ -55,13 +63,13 @@ class ProfileDetail(db.Model):
     __tablename__ = 'profile_details'
 
     id = db.Column(db.Integer, primary_key=True)
-    # user_id = db.Column(db.Integer, db.ForeignKey('users.id'), unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), unique=True)
     phone_number = db.Column(db.String(15), nullable=True)
     address = db.Column(db.String(255), nullable=True)
     bio = db.Column(db.Text, nullable=True)
     profile_picture = db.Column(db.String(255), nullable=True)
 
-    # user = db.relationship('User', backref=db.backref('profile_details', uselist=False))
+    user = db.relationship('User', back_populates='personal_details')
 
     def __repr__(self):
         return f"<ProfileDetails {self.user_id}>"
@@ -247,6 +255,7 @@ class Blog(db.Model):
     title = db.Column(db.String)
     description = db.Column(db.String)
     blog_img = db.Column(db.String)
+    comments = db.relationship('Comment', backref='blog', lazy=True)
 
     def __repr__(self):
         return f"<Blog {self.title}>"
@@ -274,7 +283,7 @@ class PrayerRequest(db.Model):
     __tablename__ = 'prayer_requests'
 
     id = db.Column(db.Integer, primary_key=True)
-    # user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     request = db.Column(db.String(255), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -283,101 +292,38 @@ class PrayerRequest(db.Model):
 
     def __repr__(self):
         return f"<PrayerRequest {self.id}>"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # member_status = db.Column(db.Boolean, default=True)
-    # admin_status = db.Column(db.Boolean, default=False)
-    # super_admin_status = db.Column(db.Boolean, default=False)
-
-    # role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
-    # personal_info_id = db.Column(db.Integer, db.ForeignKey('personal_info.id'))
-
-    # personal_info = db.relationship('PersonalInfo', backref='user')
-    # comments = db.relationship('Comment', backref='user')
-    # donations = db.relationship('Donation', backref='user')
-    # form_submissions = db.relationship('FormSubmission', backref='user')
-    # roles = db.relationship('Role', backref='user')
-    # events = db.relationship('Event', backref='user')
-
-# class Role(db.Model):
-#     __tablename__ = 'roles'
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(64))
-
-# class PersonalInfo(db.Model):
-#     __tablename__ = 'personalinfos'
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     user_id = db.Column(db.Integer)
-#     full_name = db.Column(db.String(120))
-#     address = db.Column(db.String(120))
-#     phone_number = db.Column(db.String(120))
-#     email = db.Column(db.String(120))
-
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     
-# class Comment(db.Model):
-#     __tablename__ = 'comments'
+    # save request
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
 
-#     id = db.Column(db.Integer, primary_key=True)
-#     user_id = db.Column(db.Integer, ondelete='CASCADE')
-#     content = db.Column(db.String(120))
-#     approved = db.Column(db.Boolean)
-#     created_at = db.Column(db.DateTime)
+    # delete request
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+    
 
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+class Comment(db.Model):
+    __tablename__ = 'comments'
 
-# class Department(db.Model):
-#     __tablename__ = 'departments'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'), nullable=False)
+    content = db.Column(db.String(255), nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String)
-#     description = db.Column(db.String(120))
 
-# class Event(db.Model):
-#     __tablename__ = 'events'
+    def __repr__(self):
+        return f"<Comment {self.id}>"
+    
+    # save comment
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
 
-#     id = db.Column(db.Integer, primary_key=True)
-#     department_id = db.Column(db.Integer)
-#     name = db.Column(db.String(120))
-#     description = db.Column(db.String(120))
-#     date = db.Column(db.DateTime)
-#     location = db.Column(db.String(120))
-#     organizer_info = db.Column(db.String(120))
-
-#     department_id = db.Column(db.Integer, db.ForeignKey('department.id'))
-
-# class Sermon(db.Model):
-#     __tablename__ = 'sermons'
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     title = db.Column(db.String(120))
-#     date = db.Column(db.DateTime)
-#     video_url = db.Column(db.String)
-#     audio_url = db.Column(db.String)
-#     notes = db.Column(db.String)
-#     scripture = db.Column(db.String)
-
-# class Donation(db.Model):
-#     __tablename__ = 'donations'
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     user_id = db.Column(db.Integer)
-#     amount = db.Column(db.Float)
-#     donation_date = db.Column(db.DateTime)
-
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    # delete comment
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
