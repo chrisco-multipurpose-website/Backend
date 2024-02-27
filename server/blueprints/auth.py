@@ -34,13 +34,19 @@ def login_user():
          access_token = create_access_token(identity=user.email)
          refresh_token = create_refresh_token(identity=user.email)
 
+         print("User's first name:", user.firstname)
+
          return jsonify(
              {
                  "message":"Logged In",
+                 "user_details": {
+                     "username": user.firstname,  
+                     "email": user.email
+                 },
                  "tokens": {
                      "access": access_token,
                      "refresh": refresh_token
-                 }
+                 },
              }
          ), 200
      
@@ -79,20 +85,25 @@ def logout_user():
 
     return jsonify({"message": f"{token_type} token revoked successfully"}), 200
 
-@auth_bp.route('/reset-password', methods=['POST'])
+@auth_bp.route('/reset-password', methods=['PATCH'])
 def reset_password():
     data = request.get_json()
 
     email = data.get('email')
     new_password = data.get('new_password')
+    confirm_password = data.get('confirm_password')
+
+    if not email or not new_password or not confirm_password:
+        return jsonify({"error": "Email, new password, and confirm password are required"}), 400
+
+    if new_password != confirm_password:
+        return jsonify({"error": "New password and confirm password do not match"}), 400
 
     user = User.get_user_by_email(email=email)
 
     if user is None:
         return jsonify({"error": "User does not exist"}), 404
 
-    # Update the password for the user
     user.set_password(password=new_password)
     user.save()
-
     return jsonify({"message": "Password reset successfully"}), 200
