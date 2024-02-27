@@ -1,0 +1,479 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Church Mangement API",
+      "description": "API for church management",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/auth/register": {
+        "post": {
+          "summary": "Register a new user",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "firstname": { "type": "string" },
+                    "lastname": { "type": "string" },
+                    "email": { "type": "string", "format": "email" },
+                    "password": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "User created successfully"
+            },
+            "403": {
+              "description": "User already exists"
+            }
+          }
+        }
+      },
+      "/auth/login": {
+        "post": {
+          "summary": "Log in a user",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": { "type": "string", "format": "email" },
+                    "password": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Logged in successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": { "type": "string" },
+                      "user_details": {
+                        "type": "object",
+                        "properties": {
+                          "username": { "type": "string" },
+                          "email": { "type": "string", "format": "email" }
+                        }
+                      },
+                      "tokens": {
+                        "type": "object",
+                        "properties": {
+                          "access": { "type": "string" },
+                          "refresh": { "type": "string" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid email or password"
+            }
+          }
+        }
+      },
+      "/auth/whoami": {
+        "get": {
+          "summary": "Get current user details",
+          "security": [{ "JWT": [] }],
+          "responses": {
+            "200": {
+              "description": "User details retrieved successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "user_details": {
+                        "type": "object",
+                        "properties": {
+                          "username": { "type": "string" },
+                          "email": { "type": "string", "format": "email" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/auth/refresh": {
+        "get": {
+          "summary": "Refresh access token",
+          "security": [{ "JWT": [] }],
+          "responses": {
+            "200": {
+              "description": "Access token refreshed successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "access_token": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/auth/logout": {
+        "get": {
+          "summary": "Log out a user",
+          "security": [{ "JWT": [] }],
+          "responses": {
+            "200": {
+              "description": "Token revoked successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/auth/reset-password": {
+        "post": {
+          "summary": "Reset user password",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": { "type": "string", "format": "email" },
+                    "new_password": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Password reset successfully"
+            },
+            "404": {
+              "description": "User does not exist"
+            }
+          }
+        }
+      },
+      "/about/new": {
+        "post": {
+          "summary": "Create new About Us information",
+          "tags": ["About Us"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": { "type": "string" },
+                    "description": { "type": "string" },
+                    "about_img": { "type": "string" },
+                    "mission": { "type": "string" },
+                    "vision": { "type": "string" },
+                    "faith": { "type": "string" },
+                    "faith_img": { "type": "string" },
+                    "word": { "type": "string" },
+                    "word_img": { "type": "string" },
+                    "trinity": { "type": "string" },
+                    "trinity_img": { "type": "string" },
+                    "baptism": { "type": "string" },
+                    "baptism_img": { "type": "string" },
+                    "church_slogan": { "type": "string" },
+                    "purpose": { "type": "string" },
+                    "history_desc": { "type": "string" }
+                  }
+                }
+              }
+            },
+            "responses": {
+              "201": {
+                "description": "About created successfully"
+              }
+            }
+          }
+        }
+      },
+      "/about/all": {
+        "get": {
+          "summary": "Get all About Us information",
+          "tags": ["About Us"],
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "description": "Page number",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "name": "per_page",
+              "in": "query",
+              "description": "Number of items per page",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/AboutUs"
+                        }
+                      },
+                      "page": { "type": "integer" },
+                      "per_page": { "type": "integer" },
+                      "total": { "type": "integer" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/blogs/new": {
+        "post": {
+          "summary": "Create a new blog",
+          "tags": ["Blogs"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": { "type": "string" },
+                    "description": { "type": "string" },
+                    "blog_img": { "type": "string" }
+                  },
+                  "required": ["title", "description"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Blog created successfully"
+            }
+          }
+        }
+      },
+      "/blogs/{blog_id}": {
+        "get": {
+          "summary": "Get a specific blog by ID",
+          "tags": ["Blogs"],
+          "parameters": [
+            {
+              "name": "blog_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID of the blog to retrieve"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Blog"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Blog not found"
+            }
+          }
+        }
+      },
+      "/blogs/all": {
+        "get": {
+          "summary": "Get all blogs",
+          "tags": ["Blogs"],
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "description": "Page number",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "name": "per_page",
+              "in": "query",
+              "description": "Number of items per page",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Blog"
+                        }
+                      },
+                      "page": { "type": "integer" },
+                      "per_page": { "type": "integer" },
+                      "total": { "type": "integer" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/blogs/update/{blog_id}": {
+        "put": {
+          "summary": "Update a blog by ID",
+          "tags": ["Blogs"],
+          "parameters": [
+            {
+              "name": "blog_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID of the blog to update"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": { "type": "string" },
+                    "description": { "type": "string" },
+                    "blog_img": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Blog updated successfully"
+            },
+            "404": {
+              "description": "Blog not found"
+            }
+          }
+        }
+      },
+      "/blogs/delete/{blog_id}": {
+        "delete": {
+          "summary": "Delete a blog by ID",
+          "tags": ["Blogs"],
+          "parameters": [
+            {
+              "name": "blog_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "description": "ID of the blog to delete"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Blog deleted successfully"
+            },
+            "404": {
+              "description": "Blog not found"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "AboutUs": {
+          "type": "object",
+          "properties": {
+            "title": { "type": "string" },
+            "description": { "type": "string" },
+            "about_img": { "type": "string" },
+            "mission": { "type": "string" },
+            "vision": { "type": "string" },
+            "faith": { "type": "string" },
+            "faith_img": { "type": "string" },
+            "word": { "type": "string" },
+            "word_img": { "type": "string" },
+            "trinity": { "type": "string" },
+            "trinity_img": { "type": "string" },
+            "baptism": { "type": "string" },
+            "baptism_img": { "type": "string" },
+            "church_slogan": { "type": "string" },
+            "purpose": { "type": "string" },
+            "history_desc": { "type": "string" }
+          }
+        },
+        "Blog": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "integer" },
+            "title": { "type": "string" },
+            "description": { "type": "string" },
+            "blog_img": { "type": "string" }
+          }
+        }
+      }
+      
+    }
+  }
+  
