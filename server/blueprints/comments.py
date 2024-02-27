@@ -23,6 +23,19 @@ def get_comment(comment_id):
     response = CommentSchema().dump(comment)
     return jsonify(response), 200
 
+@comment_bp.route('/all', methods=['GET'])
+def get_all_comments():
+    page = request.args.get('page', default=1, type=int)
+    per_page = request.args.get('per_page', type=int)
+
+    comments = Comment.query.paginate(
+        page = page,
+        per_page = per_page
+    )
+        
+    response = CommentSchema().dump(comments, many=True)
+
+    return jsonify(response), 200
 
 @comment_bp.route('/update/<int:comment_id>', methods=['PUT'])
 # @jwt_required()
