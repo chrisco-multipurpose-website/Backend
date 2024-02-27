@@ -18,15 +18,28 @@ def create_request():
     return jsonify({"message": "Request created successfully"}), 201
 
 @prayer_request_bp.route('/<int:request_id>', methods=['GET'])
-def get_deprequest(request_id):
+def get_request(request_id):
     request = PrayerRequest.query.get_or_404(request_id)
     response = PrayerRequestSchema().dump(request)
     return jsonify(response), 200
 
+@prayer_request_bp.route('/all', methods=['GET'])
+def get_all_requests():
+    page = request.args.get('page', default=1, type=int)
+    per_page = request.args.get('per_page', type=int)
+
+    requests = PrayerRequest.query.paginate(
+        page = page,
+        per_page = per_page
+    )
+        
+    response = PrayerRequestSchema().dump(requests, many=True)
+
+    return jsonify(response), 200
 
 @prayer_request_bp.route('/update/<int:request_id>', methods=['PUT'])
 # @jwt_required()
-def update_deprequest(request_id):
+def update_request(request_id):
     request = PrayerRequest.query.get_or_404(request_id)
     data = request.get_json()
     for key, value in data.items():
@@ -36,7 +49,7 @@ def update_deprequest(request_id):
 
 @prayer_request_bp.route('/delete/<int:request_id>', methods=['DELETE'])
 # @jwt_required()
-def delete_deprequest(request_id):
+def delete_request(request_id):
     request = PrayerRequest.query.get_or_404(request_id)
     db.session.delete(request)
     db.session.commit()
