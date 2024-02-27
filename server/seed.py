@@ -18,7 +18,6 @@ with app.app_context():
 
     # Execute a raw SQL query to delete all data from the user_roles table
     db.session.execute(text('DELETE FROM user_roles'))
-
     # Commit the transaction
     db.session.commit()
 
@@ -172,12 +171,7 @@ with app.app_context():
                 print(f"Role with type '{role_type}' not found for user {user['email']}")
         db.session.add(user)
     db.session.commit()
-
-    # for user in users_data:
-    #     data = User(**user)
-    #     db.session.add(data)
-    # db.session.commit()
-
+    
     print("Seeding churchinfo data")
     for info in churchinfo_data:
         data = ChurchInfo(**info)

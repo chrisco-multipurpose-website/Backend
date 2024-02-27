@@ -23,6 +23,19 @@ def get_request(request_id):
     response = PrayerRequestSchema().dump(request)
     return jsonify(response), 200
 
+@prayer_request_bp.route('/all', methods=['GET'])
+def get_all_requests():
+    page = request.args.get('page', default=1, type=int)
+    per_page = request.args.get('per_page', type=int)
+
+    requests = PrayerRequest.query.paginate(
+        page = page,
+        per_page = per_page
+    )
+        
+    response = PrayerRequestSchema().dump(requests, many=True)
+
+    return jsonify(response), 200
 
 @prayer_request_bp.route('/update/<int:request_id>', methods=['PUT'])
 # @jwt_required()
