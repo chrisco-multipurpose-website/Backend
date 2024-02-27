@@ -1,4 +1,5 @@
 from marshmallow import fields, Schema
+from models import User, Blog
 
 class UserSchema(Schema):
     id = fields.Integer()
@@ -89,5 +90,15 @@ class PrayerRequestSchema(Schema):
 
 class CommentSchema(Schema):
     id = fields.Integer()
-    content = fields.String()
+    comment = fields.String()
     timestamp = fields.DateTime()
+    written_by = fields.Method("get_user_name")
+    commented_blog = fields.Method("get_blog_title")
+
+    def get_user_name(self, comment):
+        user = User.query.get(comment.user_id)
+        return f"{user.firstname} {user.lastname}"
+
+    def get_blog_title(self, comment):
+        blog = Blog.query.get(comment.blog_id)
+        return blog.title
