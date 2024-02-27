@@ -86,3 +86,8 @@ class PrayerRequestSchema(Schema):
     id = fields.Integer()
     request = fields.String()
     timestamp = fields.DateTime()
+
+class CommentSchema(Schema):
+    id = fields.Integer()
+    content = fields.String()
+    timestamp = fields.DateTime()

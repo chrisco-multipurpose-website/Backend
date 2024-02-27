@@ -17,6 +17,7 @@ from blueprints.sliders import slider_bp
 from blueprints.blogs import blog_bp
 from blueprints.profile import profile_bp
 from blueprints.prayer_request import prayer_request_bp
+from blueprints.comments import comment_bp
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -49,6 +50,7 @@ app.register_blueprint(slider_bp, url_prefix='/sliders')
 app.register_blueprint(blog_bp, url_prefix='/blogs')
 app.register_blueprint(profile_bp, url_prefix='/profile')
 app.register_blueprint(prayer_request_bp, url_prefix='/requests')
+app.register_blueprint(comment_bp, url_prefix='/comments')
 
 
 

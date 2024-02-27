@@ -1,6 +1,7 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-from models import db, User, ChurchInfo, Service, Event, AboutUs, Department, Blog, SliderImage, TokenBlocklist
+from models import db, User, ChurchInfo, Service, Event, AboutUs, Department, Blog, SliderImage, TokenBlocklist, Role, PrayerRequest, Comment, user_roles
+from sqlalchemy import text
 from app import app
 
 with app.app_context():
@@ -13,13 +14,20 @@ with app.app_context():
     Blog.query.delete()
     SliderImage.query.delete()
     TokenBlocklist.query.delete()
+    Role.query.delete()
+
+    # Execute a raw SQL query to delete all data from the user_roles table
+    db.session.execute(text('DELETE FROM user_roles'))
+
+    # Commit the transaction
+    db.session.commit()
 
     users_data = [
-        {"id": 1, "firstname": "John", "lastname": "Doe", "email": "johndoe@gmail.com", "password": generate_password_hash("john123")},
-        {"id": 2, "firstname": "Elisha", "lastname": "Kibet", "email": "elishakibet@gmail.com", "password": generate_password_hash("elisha123")},
-        {"id": 3, "firstname": "Dan", "lastname": "Smith", "email": "dansmith@gmail.com", "password": generate_password_hash("dansmith123")},
-        {"id": 4, "firstname": "Jane", "lastname": "Smith", "email": "janesmith@gmail.com", "password": generate_password_hash("janesmith123")},
-        {"id": 5, "firstname": "Vera", "lastname": "Obiero", "email": "veraobiero@gmail.com", "password": generate_password_hash("vera123")},
+        {"id": 1, "firstname": "John", "lastname": "Doe", "email": "johndoe@gmail.com", "password": generate_password_hash("john123"), "roles": ["superadmin"]},
+        {"id": 2, "firstname": "Elisha", "lastname": "Kibet", "email": "elishakibet@gmail.com", "password": generate_password_hash("elisha123"), "roles": ["member"]},
+        {"id": 3, "firstname": "Dan", "lastname": "Smith", "email": "dansmith@gmail.com", "password": generate_password_hash("dansmith123"), "roles": ["member"]},
+        {"id": 4, "firstname": "Jane", "lastname": "Smith", "email": "janesmith@gmail.com", "password": generate_password_hash("janesmith123"), "roles": ["member"]},
+        {"id": 5, "firstname": "Vera", "lastname": "Obiero", "email": "veraobiero@gmail.com", "password": generate_password_hash("vera123"), "roles": ["member"]},
     ]
     roles_data = [
         {"id": 1, "type": "member"},
@@ -145,11 +153,30 @@ with app.app_context():
         {"id": 3, "slider_img": "images/sliders/slider3.png"},
     ]
 
-    print("Seeding users data")
-    for user in users_data:
-        data = User(**user)
-        db.session.add(data)
+
+    print("Seeding roles data")
+    for role_data in roles_data:
+        role = Role(**role_data)
+        db.session.add(role)
     db.session.commit()
+
+    print("Seeding users data")
+    for user_data in users_data:
+        roles = user_data.pop("roles")
+        user = User(**user_data)
+        for role_type in roles:
+            role = Role.query.filter_by(type=role_type).first()
+            if role:
+                user.roles.append(role)
+            else:
+                print(f"Role with type '{role_type}' not found for user {user['email']}")
+        db.session.add(user)
+    db.session.commit()
+
+    # for user in users_data:
+    #     data = User(**user)
+    #     db.session.add(data)
+    # db.session.commit()
 
     print("Seeding churchinfo data")
     for info in churchinfo_data:
@@ -191,4 +218,27 @@ with app.app_context():
     for slider in sliders_data:
         data = SliderImage(**slider)
         db.session.add(data)
+    db.session.commit()
+
+    print("Seeding prayer requests data")
+    requests = []
+    for user in users_data:
+        request = PrayerRequest(
+            user_id = user["id"],
+            request = "Prayer for peace, blessing, joy an unity amongst our nation",
+        )
+
+        db.session.add(request)
+    db.session.commit()
+
+    print("Seeding comments data with loop")
+    for user in users_data:
+        for blog in blogs_data:  
+            comment_data = {
+                "user_id": user["id"],
+                "blog_id": blog["id"],
+                "content": f"This is a comment from user 'XYZ' on blog 'XYZ'",
+                }
+            comment = Comment(**comment_data)
+            db.session.add(comment)
     db.session.commit()
