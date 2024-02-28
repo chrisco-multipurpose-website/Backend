@@ -16,7 +16,8 @@ def register_user():
     new_user = User(
         firstname = data.get('firstname'),
         lastname = data.get('lastname'),
-        email = data.get('email')
+        email = data.get('email'),
+        role = 'member'
     )
     new_user.set_password(password=data.get("password"))
 
@@ -58,8 +59,8 @@ def whoami():
     return jsonify(
         {
             "user_details" : {
-                "username": current_user.username,
-                "email": current_user.email
+                "email": current_user.email,
+                "role": current_user.role
             }
         }
     )

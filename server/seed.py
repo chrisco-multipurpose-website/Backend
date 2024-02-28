@@ -1,6 +1,6 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-from models import db, User, ChurchInfo, Service, Event, AboutUs, Department, Blog, SliderImage, TokenBlocklist, Role, PrayerRequest, Comment, user_roles
+from models import db, User, ChurchInfo, Service, Event, AboutUs, Department, Blog, SliderImage, TokenBlocklist, PrayerRequest, Comment
 from sqlalchemy import text
 from app import app
 
@@ -14,26 +14,26 @@ with app.app_context():
     Blog.query.delete()
     SliderImage.query.delete()
     TokenBlocklist.query.delete()
-    Role.query.delete()
+    # Role.query.delete()
     Comment.query.delete()
 
-    # Execute a raw SQL query to delete all data from the user_roles table
-    db.session.execute(text('DELETE FROM user_roles'))
-    # Commit the transaction
-    db.session.commit()
+    # # Execute a raw SQL query to delete all data from the user_roles table
+    # db.session.execute(text('DELETE FROM user_roles'))
+    # # Commit the transaction
+    # db.session.commit()
 
     users_data = [
-        {"id": 1, "firstname": "John", "lastname": "Doe", "email": "johndoe@gmail.com", "password": generate_password_hash("john123"), "roles": ["superadmin"]},
-        {"id": 2, "firstname": "Elisha", "lastname": "Kibet", "email": "elishakibet@gmail.com", "password": generate_password_hash("elisha123"), "roles": ["member"]},
-        {"id": 3, "firstname": "Dan", "lastname": "Smith", "email": "dansmith@gmail.com", "password": generate_password_hash("dansmith123"), "roles": ["member"]},
-        {"id": 4, "firstname": "Jane", "lastname": "Smith", "email": "janesmith@gmail.com", "password": generate_password_hash("janesmith123"), "roles": ["member"]},
-        {"id": 5, "firstname": "Vera", "lastname": "Obiero", "email": "veraobiero@gmail.com", "password": generate_password_hash("vera123"), "roles": ["member"]},
+        {"id": 1, "firstname": "John", "lastname": "Doe", "email": "johndoe@gmail.com", "password": generate_password_hash("john123"), "role": "superadmin"},
+        {"id": 2, "firstname": "Elisha", "lastname": "Kibet", "email": "elishakibet@gmail.com", "password": generate_password_hash("elisha123"), "role": "member"},
+        {"id": 3, "firstname": "Dan", "lastname": "Smith", "email": "dansmith@gmail.com", "password": generate_password_hash("dansmith123"), "role": "member"},
+        {"id": 4, "firstname": "Jane", "lastname": "Smith", "email": "janesmith@gmail.com", "password": generate_password_hash("janesmith123"), "role": "member"},
+        {"id": 5, "firstname": "Vera", "lastname": "Obiero", "email": "veraobiero@gmail.com", "password": generate_password_hash("vera123"), "role": "member"},
     ]
-    roles_data = [
-        {"id": 1, "type": "member"},
-        {"id": 2, "type": "admin"},
-        {"id": 3, "type": "superadmin"},
-    ]
+    # roles_data = [
+    #     {"id": 1, "type": "member"},
+    #     {"id": 2, "type": "admin"},
+    #     {"id": 3, "type": "superadmin"},
+    # ]
 
     churchinfo_data = [
         {
@@ -154,24 +154,29 @@ with app.app_context():
     ]
 
 
-    print("Seeding roles data")
-    for role_data in roles_data:
-        role = Role(**role_data)
-        db.session.add(role)
-    db.session.commit()
+    # print("Seeding roles data")
+    # for role_data in roles_data:
+    #     role = Role(**role_data)
+    #     db.session.add(role)
+    # db.session.commit()
 
     print("Seeding users data")
     for user_data in users_data:
-        roles = user_data.pop("roles")
         user = User(**user_data)
-        for role_type in roles:
-            role = Role.query.filter_by(type=role_type).first()
-            if role:
-                user.roles.append(role)
-            else:
-                print(f"Role with type '{role_type}' not found for user {user['email']}")
         db.session.add(user)
     db.session.commit()
+
+    # for user_data in users_data:
+    #     roles = user_data.pop("roles")
+    #     user = User(**user_data)
+    #     for role_type in roles:
+    #         role = Role.query.filter_by(type=role_type).first()
+    #         if role:
+    #             user.roles.append(role)
+    #         else:
+    #             print(f"Role with type '{role_type}' not found for user {user['email']}")
+    #     db.session.add(user)
+    # db.session.commit()
 
     print("Seeding churchinfo data")
     for info in churchinfo_data:
