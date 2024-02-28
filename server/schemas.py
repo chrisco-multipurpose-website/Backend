@@ -9,6 +9,7 @@ class UserSchema(Schema):
 
 class ProfileDetailSchema(Schema):
     id = fields.Integer()
+    user_id = fields.Integer()
     phone_number = fields.String()
     address = fields.String()
     bio = fields.String()

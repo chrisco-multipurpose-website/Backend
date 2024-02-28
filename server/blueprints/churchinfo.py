@@ -1,21 +1,29 @@
 from flask import Blueprint, jsonify, request
-from flask_jwt_extended import jwt_required, get_jwt
+from flask_jwt_extended import jwt_required, get_jwt, current_user
 from models import ChurchInfo, db
 from schemas import ChurchInfoSchema
 
 churchinfo_bp = Blueprint('churchinfo', __name__)
 
 @churchinfo_bp.route('/new', methods=['POST'])
+@jwt_required()
 def create_info():
+    # Check user's role
+    if current_user.role not in ['superadmin', 'admin']:
+        return jsonify({"message": "Unauthorized access"}), 401
+    
     data = request.get_json()
     new_info = ChurchInfo(
-        contact= data.get('contact'),
-        location=data.get('location'),
-        facebook=data.get('facebook'),
-        instagram=data.get('instagram'),
-        youtube=data.get('youtube'),
-        tiktok=data.get('tiktok'),
-        x_social=data.get('x_social')
+        contact = data.get('contact'),
+        location = data.get('location'),
+        address = data.get('address'),
+        email = data.get('email'),
+        website = data.get('website'),
+        facebook_url = data.get('facebook'),
+        instagram_url = data.get('instagram'),
+        youtube_url = data.get('youtube'),
+        tiktok_url = data.get('tiktok'),
+        x_url = data.get('x_social')
     )
 
     new_info.save()
@@ -24,9 +32,9 @@ def create_info():
 
 
 @churchinfo_bp.route('/<int:churchinfo_id>', methods=['GET'])
-def get_info(event_id):
-    event = ChurchInfo.query.get_or_404(event_id)
-    response = ChurchInfoSchema().dump(event)
+def get_info(churchinfo_id):
+    info = ChurchInfo.query.get_or_404(churchinfo_id)
+    response = ChurchInfoSchema().dump(info)
     return jsonify(response), 200
 
 @churchinfo_bp.route('all', methods=['GET'])
@@ -44,8 +52,12 @@ def get_all_info():
     return jsonify(response), 200
 
 @churchinfo_bp.route('/update/<int:churchinfo_id>', methods=['PUT'])
-# @jwt_required()
+@jwt_required()
 def update_event(churchinfo_id):
+    # Check user's role
+    if current_user.role not in ['superadmin', 'admin']:
+        return jsonify({"message": "Unauthorized access"}), 401
+    
     info = ChurchInfo.query.get_or_404(churchinfo_id)
     data = request.get_json()
     for key, value in data.items():
@@ -54,8 +66,12 @@ def update_event(churchinfo_id):
     return jsonify({"message": "Info updated successfully"}), 200
 
 @churchinfo_bp.route('/delete/<int:churchinfo_id>', methods=['DELETE'])
-# @jwt_required()
+@jwt_required()
 def delete_event(churchinfo_id):
+    # Check user's role
+    if current_user.role not in ['superadmin', 'admin']:
+        return jsonify({"message": "Unauthorized access"}), 401
+    
     info = ChurchInfo.query.get_or_404(churchinfo_id)
     db.session.delete(info)
     db.session.commit()
