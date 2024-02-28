@@ -59,7 +59,7 @@ with app.app_context():
     events_data = [
         {
             "id": 1, 
-            "event_img": "images/events/dinner.png", 
+            "event_img": "https://lh3.googleusercontent.com/pw/AP1GczM90vQz88zrfi7NoN6AZteH1bmUJNV5kpO9niTGy9kBGSph_H8WDTQne8UiCv4tOAAM6Y3JBdbtiuFXF5l2-JJFMj_0xnRaTGnvv6N4YuS3FqZoUg=w2400", 
             "event_category": "Dinner", 
             "title": "Dinner Night", 
             "description": "Indulge in an evening of exquisite flavors and delightful company at our dinner night event", 
@@ -73,7 +73,7 @@ with app.app_context():
         },
         {
             "id": 2, 
-            "event_img": "images/events/youth.png", 
+            "event_img": "https://lh3.googleusercontent.com/pw/AP1GczNg2brGt_bNs7pVmDRH2uoR4BxR_WbnWwHwKfnKW1N3UFohsrE5giNpuxQBlXmR0VtB7PtOUHXcmMS7TkMKEy6RHFHjTGfxIIYdEf6mpPBmmbdrgQ=w2400	", 
             "event_category": "Youth", 
             "title": "Youth Fellowship", 
             "description": "Engage with like-minded youths and build a strong spiritual foundation for a purpose life", 
@@ -87,7 +87,7 @@ with app.app_context():
         },
         {
             "id": 3, 
-            "event_img": "images/events/outreach.png", 
+            "event_img": "https://lh3.googleusercontent.com/pw/AP1GczP0ftzEtUN33YQ2FIy_XO2mGZqCD2SeL45bUkdW_2E1tbnqkGxLZEWbcJ_MOEF2eAyOD63EZQpHc8PXBEYtqOcpOO3rSqN1EmV7TOceVRJxkjmGWA=w2400	", 
             "event_category": "Outreach", 
             "title": "Community Outreach Programs", 
             "description": "Making positive impact on others by partcipating in other various community serice initiatives", 
@@ -124,19 +124,19 @@ with app.app_context():
     ]
 
     departments_data = [
-        {"id": 1, "title": "CHILDREN'S MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/children.png"},
-        {"id": 2, "title": "WORSHIP MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/worship.png"},
-        {"id": 3, "title": "YOUTH MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/youth.png"},
-        {"id": 4, "title": "MEN'S MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/men.png"},
-        {"id": 5, "title": "WOMEN'S MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/women.png"},
-        {"id": 6, "title": "INTERCESSORY MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/intercessory.png"},
-        {"id": 7, "title": "EVANGELISM MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/evangelism.png"},
-        {"id": 8, "title": "EDITORIAL MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/editorial.png"},
-        {"id": 9, "title": "USHERS MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/ushering.png"},
-        {"id": 10, "title": "FLOWERING MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/flowering.png"},
-        {"id": 11, "title": "EQUIPMENT MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/equipment.png"},
-        {"id": 12, "title": "CATERING MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/catering.png"},
-        {"id": 13, "title": "CHURCH DEVELOPMENT MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "images/departments/development.png"},
+        {"id": 1, "title": "CHILDREN'S MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "https://lh3.googleusercontent.com/pw/AP1GczNi2oztzL6CuP1PyVJRh9WcKQrxgckmU7VJHTzh2MnNuTQBIpfAzFRbjyWQPXORpHFRIGNL-UAIlV1eETkIE_LymN_V9pSCcdA4eJuQBdSEOSiwYQ=w2400"},
+        {"id": 2, "title": "WORSHIP MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "https://lh3.googleusercontent.com/pw/AP1GczNjuzZXNeht1TQvfkmvYh1Bey6Smw139Y47t6wLTPbMt3Fy4PoRGpcSi0xVvaNdpH0BDQk2mTA5Nvo1JehAz9FFKhUhN2w5hQJsgjSg-g25sPrhXA=w2400"},
+        {"id": 3, "title": "YOUTH MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "https://lh3.googleusercontent.com/pw/AP1GczNCOjWZt2K5euoH4te29S-bhlQa1KPx-raZ61x0o4tj3JqiDRoBrItNni0lQcsyvROW1lBT4pkXBm3zYRDT_dl9EY7G7NToGSvqjtj-Ghvflv06Dw=w2400"},
+        {"id": 4, "title": "MEN'S MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "https://lh3.googleusercontent.com/pw/AP1GczPQ3ZZeEEuGESBi-di9GY65EHcc1fsndzUBvTzSETlkSSQfSqDty7q0xdMkPpipY6BTkohs2WOIKfKcMkdmJ6-jvqdlsmUtI06gWpUwGlMNSezIRw=w2400"},
+        {"id": 5, "title": "WOMEN'S MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "https://lh3.googleusercontent.com/pw/AP1GczPO3LUXgI4SoFR3QZ08XhgnVi6lxAt_-iRlM7Zn2Xanci8XOQ383_kK4SOtzRObOLckQZu97JCe52jf-H6u5uLGw514USvu5ItasiNoHXdFeF6eZg=w2400"},
+        {"id": 6, "title": "INTERCESSORY MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "https://lh3.googleusercontent.com/pw/AP1GczMxd9JcjEpWogzkphm_eJ4SEZHuRZ57vxw8P06g6ucv08GSpXm3Evuj2L51gszO6oh9bweCP2GkWEK4qtaS0rHrA6v2WQY9hvIYoEz62KmHDFjSmA=w2400"},
+        {"id": 7, "title": "EVANGELISM MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "https://lh3.googleusercontent.com/pw/AP1GczNtqevLsvhwzCRYs5MyDyZv3SpiolXDvPsPK_x1-9Nhikx-UL3xO1kF-iY9BZw8VoGt2lFyrSWG2Ffn0uaBv1zKzr4to1OIbnJXYVP7FXl2wKfTNg=w2400"},
+        {"id": 8, "title": "EDITORIAL MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "https://lh3.googleusercontent.com/pw/AP1GczO9GKbM1LrXRhlTzmfAGoCcJf6FMF1oMS-5nrCdTWHvA-X0Y7E2vE3o_xCAr9lFIrzUVENOFTv9TarHmWM5YWRY7qqA_iX0wY6j7IlJcngWt0AQ3w=w2400"},
+        {"id": 9, "title": "USHERS MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "https://lh3.googleusercontent.com/pw/AP1GczOZJJ486XGRMDNDQ9Xdpwld7WUnASFMM1txXjk9MUGwIVSW3Pb1ugHy9kEsgo2EiNIo1eYr0ktWbnJa7lAR4BP4MxuZGFmyErMw54Hvhz4v1s2mvw=w2400"},
+        {"id": 10, "title": "FLOWERING MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "https://lh3.googleusercontent.com/pw/AP1GczOUWbRxNsDi4vdAA-VE23-Hd7EFPI9-bM3wS0RkTu_7x7TVtV6avO8iOVloUeeN26gXuEhgXNROQwclyjIoip8NKVaFC2XFUmKjk9ngTA85LcvwHw=w2400"},
+        {"id": 11, "title": "EQUIPMENT MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "https://lh3.googleusercontent.com/pw/AP1GczMsQ-QFYgNHAtA-orpHYFL5uO--6AcIn_C5qwihDXCvJD8gQPeI8BrtUM3qH2ZaVD0j0XMW3gaTJO_Y1-ygOMik0utVzqGf5qUtKoCfxNbPOzNyig=w2400"},
+        {"id": 12, "title": "CATERING MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "https://lh3.googleusercontent.com/pw/AP1GczOD3iMBC8dMtBcVyAmUHJGxQOG5aBQ6otetd_xon9wf-B1eP89Nh79_Kz799yrjZQUQPnD-AEiRdF10zJX8RO6u_pvpyKITvuNLnXASTXqIaQqR7g=w2400"},
+        {"id": 13, "title": "CHURCH DEVELOPMENT MINISTRY", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "department_img": "https://lh3.googleusercontent.com/pw/AP1GczNBmdm-HytWnmYIsYfQ3YTn4mpUBEbGf3oKFBiNm5GD1RJjkBJXi0939QVeyXwD5J76dtrrp_cQP8og-iFUr6tKXzP_HevOtUqnUNZw4NybjVMBHA=w2400"},
     ]
 
     blogs_data = [
