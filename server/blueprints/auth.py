@@ -41,8 +41,10 @@ def login_user():
              {
                  "message":"Logged In",
                  "user_details": {
-                     "username": user.firstname,  
-                     "email": user.email
+                     "username": user.firstname,
+                     "lastname": user.lastname,  
+                     "email": user.email,
+                     "role": user.role
                  },
                  "tokens": {
                      "access": access_token,
