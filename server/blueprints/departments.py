@@ -1,17 +1,22 @@
 from flask import Blueprint, jsonify, request
-from flask_jwt_extended import jwt_required, get_jwt
+from flask_jwt_extended import jwt_required, get_jwt, current_user
 from models import Department, db
 from schemas import DepartmentSchema
 
 department_bp = Blueprint('departments', __name__)
 
 @department_bp.route('/new', methods=['POST'])
+@jwt_required()
 def create_department():
+    # Check user's role
+    if current_user.role not in ['superadmin', 'admin']:
+        return jsonify({"message": "Unauthorized access"}), 401
+    
     data = request.get_json()
     new_department = Department(
         name= data.get('title'),
         description=data.get('description'),
-        department_img = data.get('department_img')
+        department_img = "images/departments/development.png"
     )
 
     new_department.save()
@@ -39,8 +44,12 @@ def get_all_departments():
     return jsonify(response), 200
 
 @department_bp.route('/update/<int:department_id>', methods=['PUT'])
-# @jwt_required()
+@jwt_required()
 def update_department(department_id):
+    # Check user's role
+    if current_user.role not in ['superadmin', 'admin']:
+        return jsonify({"message": "Unauthorized access"}), 401
+    
     department = Department.query.get_or_404(department_id)
     data = request.get_json()
     for key, value in data.items():
@@ -49,8 +58,12 @@ def update_department(department_id):
     return jsonify({"message": "Department updated successfully"}), 200
 
 @department_bp.route('/delete/<int:department_id>', methods=['DELETE'])
-# @jwt_required()
+@jwt_required()
 def delete_department(department_id):
+    # Check user's role
+    if current_user.role not in ['superadmin', 'admin']:
+        return jsonify({"message": "Unauthorized access"}), 401
+    
     department = Department.query.get_or_404(department_id)
     db.session.delete(department)
     db.session.commit()

@@ -5,10 +5,10 @@ from datetime import datetime
 db = SQLAlchemy()
 
 # Define association table for many-to-many relationship between users and roles
-user_roles = db.Table('user_roles',
-    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
-    db.Column('role_id', db.Integer, db.ForeignKey('roles.id'), primary_key=True)
-)
+# user_roles = db.Table('user_roles',
+#     db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+#     db.Column('role_id', db.Integer, db.ForeignKey('roles.id'), primary_key=True)
+# )
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -17,9 +17,10 @@ class User(db.Model):
     firstname = db.Column(db.String(64), index=True, nullable=False)
     lastname = db.Column(db.String(64), index=True, nullable=False)
     email = db.Column(db.String(120), index=True, unique=True, nullable=False)
-    password = db.Column(db.String(128))
+    password = db.Column(db.String(128), nullable=False)
+    role = db.Column(db.String, nullable=True)
 
-    roles = db.relationship('Role', secondary=user_roles, backref=db.backref('users', lazy='dynamic'))
+    # roles = db.relationship('Role', secondary=user_roles, backref=db.backref('users', lazy='dynamic'))
     personal_details = db.relationship('ProfileDetail', uselist=False, back_populates='user')
     comments = db.relationship('Comment', backref='user', lazy=True)
     prayer_requests = db.relationship('PrayerRequest', backref='user', lazy=True)
@@ -50,14 +51,14 @@ class User(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-class Role(db.Model):
-    __tablename__ = 'roles'
+# class Role(db.Model):
+#     __tablename__ = 'roles'
 
-    id = db.Column(db.Integer, primary_key=True)
-    type = db.Column(db.String, unique=True, nullable=False)
+#     id = db.Column(db.Integer, primary_key=True)
+#     type = db.Column(db.String, unique=True, nullable=False)
 
-    def __repr__(self):
-        return f"<Role {self.name}>"
+#     def __repr__(self):
+#         return f"<Role {self.name}>"
 
 class ProfileDetail(db.Model):
     __tablename__ = 'profile_details'
@@ -323,6 +324,27 @@ class Comment(db.Model):
         db.session.commit()
 
     # delete comment
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+class Subscription(db.Model):
+    __tablename__ = 'sub'
+
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255), nullable=False)
+    subscribed_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+    def __repr__(self):
+        return f"<Subcriber {self.email}>"
+    
+    # save subscriber
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    # delete subscriber
     def delete(self):
         db.session.delete(self)
         db.session.commit()
