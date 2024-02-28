@@ -1,17 +1,22 @@
 from flask import Blueprint, jsonify, request
-from flask_jwt_extended import jwt_required, get_jwt
+from flask_jwt_extended import jwt_required, get_jwt, current_user
 from models import Blog, db
 from schemas import BlogSchema
 
 blog_bp = Blueprint('blogs', __name__)
 
 @blog_bp.route('/new', methods=['POST'])
+@jwt_required()
 def create_blog():
+    # Check user's role
+    if current_user.role not in ['superadmin', 'admin']:
+        return jsonify({"message": "Unauthorized access"}), 401
+    
     data = request.get_json()
     new_blog = Blog(
         title= data.get('title'),
         description=data.get('description'),
-        blog_img = data.get('department_img')
+        blog_img = "images/blogs/blog1.png"
     )
 
     new_blog.save()
@@ -39,8 +44,12 @@ def get_all_blogs():
     return jsonify(response), 200
 
 @blog_bp.route('/update/<int:blog_id>', methods=['PUT'])
-# @jwt_required()
+@jwt_required()
 def update_blog(department_id):
+    # Check user's role
+    if current_user.role not in ['superadmin', 'admin']:
+        return jsonify({"message": "Unauthorized access"}), 401
+    
     blog = Blog.query.get_or_404(department_id)
     data = request.get_json()
     for key, value in data.items():
@@ -49,8 +58,12 @@ def update_blog(department_id):
     return jsonify({"message": "Blog updated successfully"}), 200
 
 @blog_bp.route('/delete/<int:blog_id>', methods=['DELETE'])
-# @jwt_required()
+@jwt_required()
 def delete_blog(blog_id):
+    # Check user's role
+    if current_user.role not in ['superadmin', 'admin']:
+        return jsonify({"message": "Unauthorized access"}), 401
+    
     blog = Blog.query.get_or_404(blog_id)
     db.session.delete(blog)
     db.session.commit()
