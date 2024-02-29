@@ -329,7 +329,7 @@ class Comment(db.Model):
         db.session.commit()
 
 class Subscription(db.Model):
-    __tablename__ = 'sub'
+    __tablename__ = 'subscriptions'
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), nullable=False)
@@ -345,6 +345,29 @@ class Subscription(db.Model):
         db.session.commit()
 
     # delete subscriber
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+class Inquiry(db.Model):
+    __tablename__ = 'inquiries'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255), nullable=False)
+    inquiry = db.Column(db.String, nullable=False)
+    submitted_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+    def __repr__(self):
+        return f"<Inquiry {self.email}>"
+    
+    # save inquiry
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    # delete inquiry
     def delete(self):
         db.session.delete(self)
         db.session.commit()

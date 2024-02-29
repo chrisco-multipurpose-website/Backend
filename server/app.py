@@ -18,6 +18,8 @@ from blueprints.blogs import blog_bp
 from blueprints.profile import profile_bp
 from blueprints.prayer_request import prayer_request_bp
 from blueprints.comments import comment_bp
+from blueprints.inquiry import inquiry_bp
+from blueprints.subscription import subscription_bp
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -51,8 +53,8 @@ app.register_blueprint(blog_bp, url_prefix='/blogs')
 app.register_blueprint(profile_bp, url_prefix='/profile')
 app.register_blueprint(prayer_request_bp, url_prefix='/requests')
 app.register_blueprint(comment_bp, url_prefix='/comments')
-
-
+app.register_blueprint(inquiry_bp, url_prefix='/inquiries')
+app.register_blueprint(subscription_bp, url_prefix='/subscriptions')
 
 # load user
 @jwt.user_lookup_loader

@@ -1,6 +1,6 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-from models import db, User, ChurchInfo, Service, Event, AboutUs, Department, Blog, SliderImage, TokenBlocklist, PrayerRequest, Comment
+from models import db, User, ChurchInfo, Service, Event, AboutUs, Department, Blog, SliderImage, TokenBlocklist, PrayerRequest, Comment, Inquiry, Subscription
 from sqlalchemy import text
 from app import app
 
@@ -16,6 +16,8 @@ with app.app_context():
     TokenBlocklist.query.delete()
     # Role.query.delete()
     Comment.query.delete()
+    Inquiry.query.delete()
+    Subscription.query.delete()
 
     # # Execute a raw SQL query to delete all data from the user_roles table
     # db.session.execute(text('DELETE FROM user_roles'))
@@ -24,7 +26,7 @@ with app.app_context():
 
     users_data = [
         {"id": 1, "firstname": "John", "lastname": "Doe", "email": "johndoe@gmail.com", "password": generate_password_hash("john123"), "role": "superadmin"},
-        {"id": 2, "firstname": "Elisha", "lastname": "Kibet", "email": "elishakibet@gmail.com", "password": generate_password_hash("elisha123"), "role": "member"},
+        {"id": 2, "firstname": "Elisha", "lastname": "Kibet", "email": "elishakibet@gmail.com", "password": generate_password_hash("elisha123"), "role": "admin"},
         {"id": 3, "firstname": "Dan", "lastname": "Smith", "email": "dansmith@gmail.com", "password": generate_password_hash("dansmith123"), "role": "member"},
         {"id": 4, "firstname": "Jane", "lastname": "Smith", "email": "janesmith@gmail.com", "password": generate_password_hash("janesmith123"), "role": "member"},
         {"id": 5, "firstname": "Vera", "lastname": "Obiero", "email": "veraobiero@gmail.com", "password": generate_password_hash("vera123"), "role": "member"},
@@ -73,7 +75,7 @@ with app.app_context():
         },
         {
             "id": 2, 
-            "event_img": "https://lh3.googleusercontent.com/pw/AP1GczNg2brGt_bNs7pVmDRH2uoR4BxR_WbnWwHwKfnKW1N3UFohsrE5giNpuxQBlXmR0VtB7PtOUHXcmMS7TkMKEy6RHFHjTGfxIIYdEf6mpPBmmbdrgQ=w2400	", 
+            "event_img": "https://lh3.googleusercontent.com/pw/AP1GczNg2brGt_bNs7pVmDRH2uoR4BxR_WbnWwHwKfnKW1N3UFohsrE5giNpuxQBlXmR0VtB7PtOUHXcmMS7TkMKEy6RHFHjTGfxIIYdEf6mpPBmmbdrgQ=w2400", 
             "event_category": "Youth", 
             "title": "Youth Fellowship", 
             "description": "Engage with like-minded youths and build a strong spiritual foundation for a purpose life", 
@@ -87,7 +89,7 @@ with app.app_context():
         },
         {
             "id": 3, 
-            "event_img": "https://lh3.googleusercontent.com/pw/AP1GczP0ftzEtUN33YQ2FIy_XO2mGZqCD2SeL45bUkdW_2E1tbnqkGxLZEWbcJ_MOEF2eAyOD63EZQpHc8PXBEYtqOcpOO3rSqN1EmV7TOceVRJxkjmGWA=w2400	", 
+            "event_img": "https://lh3.googleusercontent.com/pw/AP1GczP0ftzEtUN33YQ2FIy_XO2mGZqCD2SeL45bUkdW_2E1tbnqkGxLZEWbcJ_MOEF2eAyOD63EZQpHc8PXBEYtqOcpOO3rSqN1EmV7TOceVRJxkjmGWA=w2400", 
             "event_category": "Outreach", 
             "title": "Community Outreach Programs", 
             "description": "Making positive impact on others by partcipating in other various community serice initiatives", 
@@ -140,11 +142,11 @@ with app.app_context():
     ]
 
     blogs_data = [
-        {"id": 1, "title": "Teach to remember our days", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "blog_img": "images/blogs/blog1.png"},
-        {"id": 2, "title": "The Spirit of God gives us power to do new things", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "blog_img": "images/blogs/blog2.png"},
-        {"id": 3, "title": "What shall I render unto to the Lord for all His benefits towards me", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "blog_img": "images/blogs/blog3.png"},
-        {"id": 4, "title": "Paul pursuit of the prize: Pressing towards the goal", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "blog_img": "images/blogs/blog4.png"},
-        {"id": 5, "title": "When the winds howl and the waves crash around us", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "blog_img": "images/blogs/blog5.png"},
+        {"id": 1, "title": "Teach to remember our days", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "blog_img": "https://lh3.googleusercontent.com/pw/AP1GczNR_cU-twN3cJ0N2bhEST6ae5DNb_-fRw14dM8smmoLPpEX3kMlUzkO27HqUEpIkKCCGnXp88nPID3VjSgAkuwB92qobGL1-pCERWYUTo5fAr8MNg=w2400"},
+        {"id": 2, "title": "The Spirit of God gives us power to do new things", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "blog_img": "https://lh3.googleusercontent.com/pw/AP1GczPlvnommVZf1P-3nHAlgbCCLF1X9b4_n8K8m33dVOjNWNZ4ZDxFFAumZDftezsYHG71olCwpAxl8FkXN0EISFQU-WJbO6ppyBaYkDp6uvJrRn92IQ=w2400"},
+        {"id": 3, "title": "What shall I render unto to the Lord for all His benefits towards me", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "blog_img": "https://lh3.googleusercontent.com/pw/AP1GczOtyAi7X2-R5y1U4XlT_BQJhg5fAVwqBGkp-I5S0H_VEt5JsgW5K0vtcBfOZ3-2lONw1mplBCwJJdy6JHMyr4Qa3feuG1vicRofjJ-eaEoNcD3X5g=w2400"},
+        {"id": 4, "title": "Paul pursuit of the prize: Pressing towards the goal", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "blog_img": "https://lh3.googleusercontent.com/pw/AP1GczPGKg59zsgPLDv12_riXKlfPflGAz4-YU8G6YJCDIRq3u57WA8BF9-WrkKijSk6FcSZkYBgcAWEsfrq1l2rQSCOurmTSQt6P5QeLx6O80KLCa7CEQ=w2400"},
+        {"id": 5, "title": "When the winds howl and the waves crash around us", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore", "blog_img": "https://lh3.googleusercontent.com/pw/AP1GczNhzcahl8n5w8gHaNoxYB0Lq-Mqsnf_KRBIhvd3_xNa6OtZQNuKIqCRZyoMEqsyMo3C31qq9Gwk4mGO3-0tB0reyBCYnwwyIsWpFF4Zxy5gOO-H0Q=w2400"},
     ]
 
     sliders_data = [
@@ -153,7 +155,17 @@ with app.app_context():
         {"id": 3, "slider_img": "images/sliders/slider3.png"},
     ]
 
+    subscriptions_data = [
+        {"id": 1, "email": "alice@gmail.com"},
+        {"id": 2, "email": "titus@gmail.com"},
+        {"id": 3, "email": "emmanuel@gmail.com"}
+    ]
 
+    inquiries_data = [
+        {"id": 1, "name": "Alice Kyalo", "email": "alice@gmail.com", "inquiry": "Where is your church located at?"},
+        {"id": 2, "name": "Titus Kip", "email": "titus@gmail.com", "inquiry": "Want to contact church pastor"},
+        {"id": 3, "name": "Emmanuel Kip", "email": "emmanuel@gmail.com", "inquiry": "Want to join the church choir"}
+    ]
     # print("Seeding roles data")
     # for role_data in roles_data:
     #     role = Role(**role_data)
@@ -241,4 +253,16 @@ with app.app_context():
                 }
             comment = Comment(**comment_data)
             db.session.add(comment)
+    db.session.commit()
+
+    print("Seeding subscriptions data")
+    for subscription in subscriptions_data:
+        data = Subscription(**subscription)
+        db.session.add(data)
+    db.session.commit()
+
+    print("Seeding inquiries data")
+    for inquiry in inquiries_data:
+        data = Inquiry(**inquiry)
+        db.session.add(data)
     db.session.commit()

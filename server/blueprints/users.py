@@ -80,7 +80,7 @@ def update_user(user_id):
 @jwt_required()
 def delete_user(user_id):
     # Check user's role
-    if current_user.role != 'superadmin':
+    if current_user.role not in ['superadmin', 'admin']:
         return jsonify({"message": "Unauthorized access"}), 401
     
     user = User.query.get_or_404(user_id)

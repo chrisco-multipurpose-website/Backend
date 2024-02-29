@@ -103,3 +103,15 @@ class CommentSchema(Schema):
     def get_blog_title(self, comment):
         blog = Blog.query.get(comment.blog_id)
         return blog.title
+    
+class SubcriptionSchema(Schema):
+    id = fields.Integer()
+    email = fields.String()
+    subcribed_at = fields.DateTime()
+
+class InquirySchema(Schema):
+    id = fields.Integer()
+    name = fields.String()
+    email = fields.String()
+    inquiry = fields.String()
+    submitted_at = fields.DateTime()
