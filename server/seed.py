@@ -14,6 +14,7 @@ with app.app_context():
     Blog.query.delete()
     SliderImage.query.delete()
     TokenBlocklist.query.delete()
+    PrayerRequest.query.delete()
     # Role.query.delete()
     Comment.query.delete()
     Inquiry.query.delete()
