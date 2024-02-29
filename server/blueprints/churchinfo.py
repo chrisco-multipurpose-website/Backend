@@ -53,7 +53,7 @@ def get_all_info():
 
 @churchinfo_bp.route('/update/<int:churchinfo_id>', methods=['PUT'])
 @jwt_required()
-def update_event(churchinfo_id):
+def update_info(churchinfo_id):
     # Check user's role
     if current_user.role not in ['superadmin', 'admin']:
         return jsonify({"message": "Unauthorized access"}), 401
