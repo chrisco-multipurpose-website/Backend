@@ -16,7 +16,7 @@ def create_department():
     new_department = Department(
         name= data.get('title'),
         description=data.get('description'),
-        department_img = "images/departments/development.png"
+        department_img = "https://lh3.googleusercontent.com/pw/AP1GczNBmdm-HytWnmYIsYfQ3YTn4mpUBEbGf3oKFBiNm5GD1RJjkBJXi0939QVeyXwD5J76dtrrp_cQP8og-iFUr6tKXzP_HevOtUqnUNZw4NybjVMBHA=w2400"
     )
 
     new_department.save()

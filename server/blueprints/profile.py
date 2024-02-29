@@ -34,7 +34,7 @@ def create_or_update_user_profile_details():
             phone_number=data.get('phone_number'),
             address=data.get('address'),
             bio=data.get('bio'),
-            profile_picture='images/users/user-profile.jpeg',
+            profile_picture='https://lh3.googleusercontent.com/pw/AP1GczP8mAdEVzIRfFa2bVTiVDZeLgFLrUCBMX7Qzru23cJx1tVDR_aXiigXTRNKs0dRbcQT7E_i3wWqWW9GyTSXhbg-qAYqX_lSbGso1zS_Kkb_DSmCrw=w2400',
             user_id=current_user.id
         )
         new_profile.save()

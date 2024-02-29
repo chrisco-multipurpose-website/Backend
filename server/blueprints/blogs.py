@@ -16,7 +16,7 @@ def create_blog():
     new_blog = Blog(
         title= data.get('title'),
         description=data.get('description'),
-        blog_img = "images/blogs/blog1.png"
+        blog_img = 'https://lh3.googleusercontent.com/pw/AP1GczPGKg59zsgPLDv12_riXKlfPflGAz4-YU8G6YJCDIRq3u57WA8BF9-WrkKijSk6FcSZkYBgcAWEsfrq1l2rQSCOurmTSQt6P5QeLx6O80KLCa7CEQ=w2400'
     )
 
     new_blog.save()

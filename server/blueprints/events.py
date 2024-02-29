@@ -15,7 +15,7 @@ def create_event():
     
     data = request.get_json()
     new_event = Event(
-        event_img = "images/events/outreach.png",
+        event_img = "https://lh3.googleusercontent.com/pw/AP1GczNg2brGt_bNs7pVmDRH2uoR4BxR_WbnWwHwKfnKW1N3UFohsrE5giNpuxQBlXmR0VtB7PtOUHXcmMS7TkMKEy6RHFHjTGfxIIYdEf6mpPBmmbdrgQ=w2400",
         event_category = data.get('event_category'),
         title = data.get('title'),
         description = data.get('description'),
