@@ -1,4 +1,5 @@
 from marshmallow import fields, Schema
+from flask_jwt_extended import current_user
 from models import User, Blog
 
 class UserSchema(Schema):
@@ -88,6 +89,15 @@ class PrayerRequestSchema(Schema):
     id = fields.Integer()
     request = fields.String()
     timestamp = fields.DateTime()
+    prayed_for = fields.Boolean()
+    request_from = fields.Method('get_user_name')
+
+    def get_user_name(self, request):
+        if current_user.role in ['superadmin', 'admin']:
+            user = User.query.get(request.user_id)
+            return f"{user.firstname} {user.lastname}"
+        else:
+            return None
 
 class CommentSchema(Schema):
     id = fields.Integer()
