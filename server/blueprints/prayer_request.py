@@ -8,8 +8,17 @@ prayer_request_bp = Blueprint('requests', __name__)
 @prayer_request_bp.route('/all', methods=['GET'])
 @jwt_required()
 def get_user_prayer_requests():
-    user_requests = PrayerRequest.query.filter_by(user_id=current_user.id).all()
-    response = PrayerRequestSchema().dump(user_requests, many=True)
+    page = request.args.get('page', default=1, type=int)
+    per_page = request.args.get('per_page', type=int)
+    
+    if current_user.role in ['superadmin', 'admin']:
+        all_requests = PrayerRequest.query.paginate(page=page, per_page=per_page)
+    elif current_user.role == 'member':
+        all_requests = PrayerRequest.query.filter_by(user_id=current_user.id).paginate(page=page, per_page=per_page)
+    else:
+        return jsonify({"message": "Unauthorized"}), 403
+    
+    response = PrayerRequestSchema().dump(all_requests.items, many=True)
     return jsonify(response), 200
 
 @prayer_request_bp.route('/new', methods=['POST'])

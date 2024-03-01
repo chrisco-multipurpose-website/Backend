@@ -286,6 +286,7 @@ class PrayerRequest(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     request = db.Column(db.String(255), nullable=False)
+    prayed_for = db.Column(db.Boolean, default=False)  
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
     # # Define a relationship with the User model
