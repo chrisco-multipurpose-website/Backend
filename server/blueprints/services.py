@@ -39,7 +39,7 @@ def get_all_services():
 
     return jsonify(response), 200
 
-@service_bp.route('/update/<int:service_id>', methods=['PUT'])
+@service_bp.route('/update/<int:service_id>', methods=['PATCH'])
 @jwt_required()
 def update_service(service_id):
      # Check user's role
