@@ -32,7 +32,7 @@ def get_latest_podcast_episodes():
     response = requests.get(
         f'{SPOTIFY_API_URL}/shows/{SPOTIFY_PODCAST_ID}/episodes',
         headers=headers,
-        params={'limit': 9}
+        params={'limit': 3}
     )
     episodes = response.json().get('items', [])
     episode_data = [
