@@ -3,7 +3,7 @@ import requests
 
 youtube_bp = Blueprint('youtube', __name__)
 
-YOUTUBE_API_KEY = 'AIzaSyDpHSX1bsWxsODq2KgsbbNBXEOZkqQCnCc'
+YOUTUBE_API_KEY = 'AIzaSyCX11fEMvSIzDzXQhTs6V4SI1b6BCltT-c'
 CHANNEL_ID = 'UCx3_YD5Skpopibo0OUGKL0Q'
 YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3/search'
 
@@ -12,7 +12,7 @@ def get_latest_videos():
     params = {
         'part': 'snippet',
         'channelId': CHANNEL_ID,
-        'maxResults': 9,
+        'maxResults': 3,
         'order': 'date',
         'type': 'video',
         'key': YOUTUBE_API_KEY
