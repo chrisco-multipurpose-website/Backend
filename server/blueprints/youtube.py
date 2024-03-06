@@ -12,7 +12,7 @@ def get_latest_videos():
     params = {
         'part': 'snippet',
         'channelId': CHANNEL_ID,
-        'maxResults': 3,
+        'maxResults': 9,
         'order': 'date',
         'type': 'video',
         'key': YOUTUBE_API_KEY

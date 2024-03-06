@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+import re
 
 db = SQLAlchemy()
 
@@ -254,12 +255,31 @@ class Blog(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String)
-    description = db.Column(db.String)
+    content = db.Column(db.Text)
     blog_img = db.Column(db.String)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    estimated_read_time = db.Column(db.Integer, default=0)
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
+
+    category = db.relationship('Category', backref='blog', lazy=True)
     comments = db.relationship('Comment', backref='blog', lazy=True)
 
     def __repr__(self):
         return f"<Blog {self.title}>"
+    
+    def calculate_read_time(self, words_per_minute=200):
+        # Count words in the content
+        words = re.findall(r'\w+', self.content)
+        word_count = len(words)
+        
+        # Calculate estimated read time
+        read_time_minutes = word_count / words_per_minute
+        
+        # Round to the nearest whole number
+        read_time_minutes = round(read_time_minutes)
+        
+        return read_time_minutes
 
     # save department
     def save(self):
@@ -270,6 +290,50 @@ class Blog(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
+    blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'), nullable=True)
+    comment = db.Column(db.String(255), nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
+
+    def __repr__(self):
+        return f"<Comment {self.id}>"
+    
+    # save comment
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    # delete comment
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+class Category(db.Model):
+    __tablename__ = 'categories'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    slug = db.Column(db.String(100), unique=True)
+
+    def __repr__(self):
+        return f"Category {self.name}"
+    
+    # save category
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    # delete category
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 
 class SliderImage(db.Model):
     __tablename__ = "sliderimages"
@@ -306,28 +370,6 @@ class PrayerRequest(db.Model):
         db.session.commit()
     
 
-class Comment(db.Model):
-    __tablename__ = 'comments'
-
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
-    blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'), nullable=True)
-    comment = db.Column(db.String(255), nullable=False)
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
-
-
-    def __repr__(self):
-        return f"<Comment {self.id}>"
-    
-    # save comment
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-
-    # delete comment
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
 
 class Subscription(db.Model):
     __tablename__ = 'subscriptions'
