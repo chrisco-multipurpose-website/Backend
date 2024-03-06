@@ -78,8 +78,10 @@ class DepartmentSchema(Schema):
 class BlogSchema(Schema):
     id = fields.Integer()
     title = fields.String()
-    description = fields.String()
+    content = fields.String()
     blog_img = fields.String()
+    estimated_read_time = fields.String()
+
 
 class SliderImageSchema(Schema):
     id = fields.Integer()

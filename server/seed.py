@@ -1,6 +1,6 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-from models import db, User, ChurchInfo, Service, Event, AboutUs, Department, Blog, SliderImage, TokenBlocklist, PrayerRequest, Comment, Inquiry, Subscription
+from models import db, User, ChurchInfo, Service, Event, AboutUs, Department, Blog, SliderImage, TokenBlocklist, PrayerRequest, Comment, Inquiry, Subscription, Category
 from sqlalchemy import text
 from app import app
 
@@ -307,4 +307,10 @@ with app.app_context():
     for inquiry in inquiries_data:
         data = Inquiry(**inquiry)
         db.session.add(data)
+    db.session.commit()
+
+    print("Seeding categories data")
+    for category_data in categories_data:
+        category = Category(**category_data)
+        db.session.add(category)
     db.session.commit()
