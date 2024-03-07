@@ -50,7 +50,7 @@ class EventSchema(Schema):
     end_time = fields.String()
     event_host = fields.String()
 
-class AboutUsSChema(Schema):
+class AboutUsSchema(Schema):
     id = fields.Integer()
     title = fields.String()
     description = fields.String()
