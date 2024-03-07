@@ -1,0 +1,68 @@
+authentication;
+	https://chrisco-church-endpoints.onrender.com/auth/regsiter
+	https://chrisco-church-endpoints.onrender.com/auth/login
+	https://chrisco-church-endpoints.onrender.com/auth/logout
+	https://chrisco-church-endpoints.onrender.com/auth/reset-password
+users;
+	https://chrisco-church-endpoints.onrender.com/users/new - superadmin, admin can add user
+	https://chrisco-church-endpoints.onrender.com/users/all - not protected
+	https://chrisco-church-endpoints.onrender.com/users/update/<int:user_id> - superadmin can update user
+	https://chrisco-church-endpoints.onrender.com/users/delete/<int:user_id> - superadmin can delete user (will give admin the delete functionality)
+events; 
+	https://chrisco-church-endpoints.onrender.com/events/new - superadmin, admin can add event
+	https://chrisco-church-endpoints.onrender.com/events/all - not protected
+	https://chrisco-church-endpoints.onrender.com/events/update/<int:event_id> - superadmin, admin can update event
+	https://chrisco-church-endpoints.onrender.com/events/delete/<int:event_id> - superadmin, admin can delete event
+about; 
+	https://chrisco-church-endpoints.onrender.com/about/new - superadmin, admin can add about
+	https://chrisco-church-endpoints.onrender.com/about/all - not protected
+	https://chrisco-church-endpoints.onrender.com/about/update/<int:event_id> - superadmin, admin can update about
+	https://chrisco-church-endpoints.onrender.com/about/delete/<int:event_id> - superadmin, admin can delete about
+departments; 
+	https://chrisco-church-endpoints.onrender.com/departments/new - superadmin, admin can add department
+	https://chrisco-church-endpoints.onrender.com/departments/all - not protected
+	https://chrisco-church-endpoints.onrender.com/departments/update/<int:department_id> - superadmin, admin can update department
+	https://chrisco-church-endpoints.onrender.com/departments/delete/<int:department_id> - superadmin, admin can delete department
+blogs; 
+	https://chrisco-church-endpoints.onrender.com/blogs/new - superadmin, admin can add blog
+	https://chrisco-church-endpoints.onrender.com/blogs/all - not protected
+	https://chrisco-church-endpoints.onrender.com/blogs/update/<int:blog_id> - superadmin, admin can update blog
+	https://chrisco-church-endpoints.onrender.com/blogs/delete/<int:blog_id> - superadmin, admin can delete blog
+services; 
+	https://chrisco-church-endpoints.onrender.com/services/new - superadmin, admin can add service
+	https://chrisco-church-endpoints.onrender.com/services/all - not protected
+	https://chrisco-church-endpoints.onrender.com/services/update/<int:service_id> - superadmin, admin can update service
+	https://chrisco-church-endpoints.onrender.com/services/delete/<int:service_id> - superadmin, admin can delete service
+churchinfo;
+	https://chrisco-church-endpoints.onrender.com/churchinfo/new - superadmin, admin can add churchinfo
+	https://chrisco-church-endpoints.onrender.com/churchinfo/all - not protected
+	https://chrisco-church-endpoints.onrender.com/churchinfo/update/<int:churchinfo_id> - superadmin, admin can update churchinfo
+	https://chrisco-church-endpoints.onrender.com/churchinfo/delete/<int:churchinfo_id> - superadmin, admin can delete churchinfo
+profile;
+	https://chrisco-church-endpoints.onrender.com/profile/details - get profile
+	https://chrisco-church-endpoints.onrender.com/profile/update - update profile
+	https://chrisco-church-endpoints.onrender.com/profile/delete - delete profile
+prayer-requests;
+	https://chrisco-church-endpoints.onrender.com/requests/all - get prayer requests
+	https://chrisco-church-endpoints.onrender.com/requests/new - create new prayer request
+	https://chrisco-church-endpoints.onrender.com/requests/update/<int:request_id> - update prayer request
+	https://chrisco-church-endpoints.onrender.com/requests/delete/<int:request_id> - delete prayer-request
+comments;
+	https://chrisco-church-endpoints.onrender.com/comments/blog/<int:blog_id> - get_comments_for_blog
+	https://chrisco-church-endpoints.onrender.com/comments/blog/<int:blog_id>/<int:comment_id>/new - create_comment_for_blog
+	https://chrisco-church-endpoints.onrender.com/comments/blog/<int:blog_id>/<int:comment_id>/get - get_comment_for_blog
+	https://chrisco-church-endpoints.onrender.com/comments/blog/<int:blog_id>/<int:comment_id>/update - update_comment_for_blog
+	https://chrisco-church-endpoints.onrender.com/comments/blog/<int:blog_id>/<int:comment_id>/delete - delete_comment_for_blog
+
+subscriptions;
+	https://chrisco-church-endpoints.onrender.com/subscriptions/create - create subcription
+	https://chrisco-church-endpoints.onrender.com/subscriptions/all - get all subcription (superadmin/admin can get all)
+	https://chrisco-church-endpoints.onrender.com/subscriptions/delete/<int:inquiry_id> - delete subcription (superadmin/admin can delete)
+inquiries;
+	https://chrisco-church-endpoints.onrender.com/inquiries/create - create inquiry
+	https://chrisco-church-endpoints.onrender.com/inquiries/all - get all inquiries (superadmin/admin can get all)
+	https://chrisco-church-endpoints.onrender.com/inquiries/delete/<int:inquiry_id> - delete inquiry (superadmin/admin can delete )
+
+
+	
+	
